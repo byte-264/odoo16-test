@@ -1,0 +1,39 @@
+<odoo>
+
+
+  <record id="view_form_primero" model="ir.ui.view">
+    <field name="name">mi.modelo.primero.form</field>
+    <field name="model">mi.modelo.primero</field>
+    <field name="arch" type="xml">
+      <form string="Primero">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="descripcion"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_tree_primero" model="ir.ui.view">
+    <field name="name">mi.modelo.primero.tree</field>
+    <field name="model">mi.modelo.primero</field>
+    <field name="arch" type="xml">
+      <tree string="Primeros">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+
+
+
+  <record id="action_primero" model="ir.actions.act_window">
+    <field name="name">Primeros</field>
+    <field name="res_model">mi.modelo.primero</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="menu_primero_root" name="Primeros"/>
+  <menuitem id="menu_primero_sub" name="Listado" parent="menu_primero_root" action="action_primero"/>
+</odoo>
