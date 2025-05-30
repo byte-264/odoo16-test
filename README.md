@@ -16,7 +16,6 @@
 - [🛠️ Comandos Útiles](#-comandos-útiles)
 - [🔧 Configuración](#-configuración)
 - [📦 Módulos Disponibles](#-módulos-disponibles)
-- [🐛 Solución de Problemas](#-solución-de-problemas)
 
 ---
 
