@@ -6,3 +6,4 @@ class Primero(models.Model):
 
     name = fields.Char(string='Nombre', required=True)
     descripcion = fields.Text(string='Descripción')
+    date = fields.Date(string='Fecha', default=fields.Date.today)

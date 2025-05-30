@@ -1,6 +1,6 @@
 {
     'name': 'Primer Módulo de Prueba',
-    'version': '1.0',
+    'version': '1.1',
     'summary': 'Este primer módulo sirve como prueba',
     'author': 'Tu Nombre',
     'category': 'Tools',
