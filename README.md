@@ -182,3 +182,7 @@ data_dir = /var/lib/odoo
 ### **🏢 Módulos Core**
 - `primer_modulo_prueba` - Módulo de ejemplo personalizado
 - `ohrms_security_groups` - Gestión de permisos personalizados
+
+
+## Contraseña de BD de prueba
+- 5k9y-t4ig-5p6x
