@@ -1,57 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="view_form_primero" model="ir.ui.view">
-    <field name="name">mi.modelo.primero.form</field>
-    <field name="model">mi.modelo.primero</field>
-    <field name="arch" type="xml">
-      <form string="Primero">
-        <sheet>
-          <group>
-            <field name="name"/>
-            <field name="date"/>
-            <field name="descripcion"/>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
+    <data>
+        <!-- Vista de lista -->
+        <record id="view_primero_tree" model="ir.ui.view">
+            <field name="name">primero.tree</field>
+            <field name="model">mi.modelo.primero</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
 
-  <record id="view_tree_primero" model="ir.ui.view">
-    <field name="name">mi.modelo.primero.tree</field>
-    <field name="model">mi.modelo.primero</field>
-    <field name="arch" type="xml">
-      <tree string="Primeros">
-        <field name="name"/>
-        <field name="date"/>
-      </tree>
-    </field>
-  </record>
+        <!-- Vista de formulario -->
+        <record id="view_primero_form" model="ir.ui.view">
+            <field name="name">primero.form</field>
+            <field name="model">mi.modelo.primero</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="descripcion"/>
+                            <field name="date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
+        <!-- Acción de ventana -->
+        <record id="action_primero" model="ir.actions.act_window">
+            <field name="name">Primero</field>
+            <field name="res_model">mi.modelo.primero</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
-
-  <record id="view_search_primero" model="ir.ui.view">
-    <field name="name">mi.modelo.primero.search</field>
-    <field name="model">mi.modelo.primero</field>
-    <field name="arch" type="xml">
-      <search string="Buscar Primeros">
-        <field name="name"/>
-        <field name="date"/>
-        <filter name="filter_active" string="Activos" domain="[('active', '=', True)]"/>
-        <filter name="filter_today" string="Hoy" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
-        <filter name="filter_this_week" string="Esta semana" domain="[('date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
-        <group expand="0" string="Agrupar por">
-          <filter string="Fecha" name="group_by_date" context="{'group_by': 'date'}"/>
-        </group>
-      </search>
-    </field>
-  </record>
-
-
-  <record id="action_primero" model="ir.actions.act_window">
-    <field name="name">Primeros</field>
-    <field name="res_model">mi.modelo.primero</field>
-    <field name="view_mode">tree,form</field>
-  </record>
-
-  <menuitem id="menu_primero_root" name="Primeros"/>
-  <menuitem id="menu_primero_sub" name="Listado" parent="menu_primero_root" action="action_primero"/>
+        <!-- Menú -->
+        <menuitem id="menu_primero_root" name="Primer Módulo"/>
+        <menuitem id="menu_primero" name="Primero" parent="menu_primero_root" action="action_primero"/>
+    </data>
 </odoo>
