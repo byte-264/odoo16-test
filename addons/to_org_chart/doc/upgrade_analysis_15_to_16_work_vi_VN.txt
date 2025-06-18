@@ -1,0 +1,46 @@
+---Classes in module ---
+
+FILE: to_org_chart/__init__.py
+# Không thay đổi
+
+FILE: to_org_chart/models/ir_ui_view.py
+# Không thay đổi
+class View(models.Model):
+    _inherit = 'ir.ui.view'
+
+
+    type = fields.Selection(selection_add=[('org', 'Org Chart')], ondelete={'org': 'cascade'})
+
+FILE: to_org_chart/models/model_base.py
+# Không thay đổi
+class BaseModel(models.AbstractModel):
+    _inherit = "base"
+
+
+    @api.model
+    def _get_default_org_view(self):
+        """ Generates a default org view, based on _rec_name.
+
+        This method is automatically triggered each time the `_fields_view_get()` is called
+
+        :returns: a org view as an lxml document
+        :rtype: etree._Element
+        """
+
+    @api.model
+    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None, **read_kwargs):
+        """
+        Override to return data for parent records too
+        """
+
+
+FILE: to_org_chart/models/__init__.py
+# Không thay đổi
+
+FILE: to_org_chart/models/ir_action.py
+# Không thay đổi
+class ActWindowView(models.Model):
+    _inherit = 'ir.actions.act_window.view'
+
+
+    view_mode = fields.Selection(selection_add=[('org', 'Org Chart')], ondelete={'org': 'cascade'})

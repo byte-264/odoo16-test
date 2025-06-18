@@ -1,0 +1,137 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* viin_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-11 05:00+0000\n"
+"PO-Revision-Date: 2023-07-11 05:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: viin_hr
+#: model:ir.model,name:viin_hr.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee__coach_ids
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee_public__coach_ids
+msgid "Coaches"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model,name:viin_hr.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model,name:viin_hr.model_hr_department
+msgid "Department"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_department__name
+msgid "Department Name"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee__parent_all_count
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee_base__parent_all_count
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee_public__parent_all_count
+msgid "Direct & Indirect Managers Count"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,help:viin_hr.field_hr_department__recursive_child_ids
+msgid "Direct and Indirect Child Departments"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,help:viin_hr.field_hr_employee__coach_ids
+#: model:ir.model.fields,help:viin_hr.field_hr_employee_public__coach_ids
+msgid "Technical field to store all the coaches in coach hierarchy, i.e. coaches of coach"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,help:viin_hr.field_hr_department__manager_ids
+#: model:ir.model.fields,help:viin_hr.field_hr_employee__parent_ids
+#: model:ir.model.fields,help:viin_hr.field_hr_employee_public__parent_ids
+msgid "Direct and indirect managers"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model,name:viin_hr.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee__is_department_manager
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee_base__is_department_manager
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee_public__is_department_manager
+msgid "Is Department Manager"
+msgstr ""
+
+#. module: viin_hr
+#: model_terms:ir.ui.view,arch_db:viin_hr.view_res_partner_filter
+msgid "Is Employee"
+msgstr ""
+
+#. module: viin_hr
+#. odoo-python
+#: code:addons/viin_hr/models/hr_org_chart_mixin.py:0
+#, python-format
+msgid "Operation not supported"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee__vat
+msgid "Personal Tax Code"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee__place_of_origin
+msgid "Place of Origin"
+msgstr ""
+
+#. module: viin_hr
+#: model_terms:ir.ui.view,arch_db:viin_hr.view_employee_form
+msgid ""
+"Please specify Private Address before you can set Personal\n"
+"\t\t\t\t\t\tTax Code"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model,name:viin_hr.model_hr_employee_public
+msgid "Public Employee"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_department__recursive_child_ids
+msgid "Recursive Child Departments"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,field_description:viin_hr.field_hr_department__manager_ids
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee__parent_ids
+#: model:ir.model.fields,field_description:viin_hr.field_hr_employee_public__parent_ids
+msgid "Superiors"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model.fields,help:viin_hr.field_hr_employee__vat
+msgid ""
+"The tax identification number that is related to the corresponding partner "
+"record specified in the field Private Address"
+msgstr ""
+
+#. module: viin_hr
+#: model:ir.model,name:viin_hr.model_res_users
+msgid "User"
+msgstr ""

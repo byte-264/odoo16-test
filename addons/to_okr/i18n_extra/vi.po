@@ -1,0 +1,4 @@
+#. module: base
+#: model:ir.module.category,description:base.module_category_human_resources_okr
+msgid "Helps you manage and focus on your objectives and key results."
+msgstr "Giúp bạn quản lý và tập trung vào các mục tiêu và kết quả chính."

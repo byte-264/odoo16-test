@@ -1,0 +1,124 @@
+---Classes in module ---
+
+FILE: viin_hr/__init__.py
+
+
+FILE: viin_hr/models/res_partner.py
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+
+    def _get_hr_allowed_fields(self):
+    def write(self, vals):
+        """
+        Dirty hack to allow HR officer to update employee's private address without res.users access rights error
+        """
+
+
+FILE: viin_hr/models/hr_department.py
+
+class HrDepartment(models.Model):
+    _inherit = 'hr.department'
+
+
+    manager_ids = fields.One2many('hr.employee', string='Superiors', compute='_compute_managers',
+                                  help="Direct and indirect managers", compute_sudo=True)
+    recursive_child_ids = fields.Many2many('hr.department', 'parent_id', 'child_id', compute='_compute_recursive_child_ids',
+                                           compute_sudo=True, string='Recursive Child Departments',
+                                           help="Direct and Indirect Child Departments")
+    name = fields.Char(translate=True)
+    def name_get(self):
+    @api.depends('parent_id', 'manager_id', 'parent_id.manager_id')
+    def _compute_managers(self):
+    @api.depends('child_ids', 'child_ids.child_ids')
+    def _compute_recursive_child_ids(self):
+    @api.model_create_multi
+    @api.returns('self', lambda value:value.id)
+    def create(self, vals_list):
+    def write(self, vals):
+    def unlink(self):
+    def _get_recursive_managers(self):
+    def _get_recursive_children(self):
+    def _get_hierarchical_name(self):
+        """method to form the name of the department hierarchically. E.g. `Parent / Child / Sub-Child`"""
+
+
+FILE: viin_hr/models/res_users.py
+
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+
+    @api.model
+    def check_access_rights(self, operation, raise_exception=True):
+        """
+        Dirty hack to allow HR officer to update employee's private address without res.users access rights error
+        """
+
+
+FILE: viin_hr/models/hr_org_chart_mixin.py
+
+class HrEmployeeBase(models.AbstractModel):
+    _inherit = 'hr.employee.base'
+
+
+    parent_all_count = fields.Integer(
+        'Direct & Indirect Managers Count', recursive=True,
+        compute='_compute_managers', store=False,
+        compute_sudo=True)
+    is_department_manager = fields.Boolean(string='Is Department Manager', compute='_compute_is_department_manager',
+                                           search='_search_is_department_manager')
+    def _get_recursive_parents(self, children=None, department_manager=True):
+        """
+        This get all direct and indirect managers of the employee (excluding himself)
+        To take the direct manager, just get the very first record of the returned result
+        :param children: None or employee records to exclude himself from managers list
+        :param department_manager: if False is given, managers of departments will not be taken into account
+        """
+
+    def _compute_parent_id(self):
+        """
+        Override to ensure employee itself will not be applied as its manager
+        If it is the manager a department, its superior deparment's manager will become its manager
+        """
+
+    @api.depends_context('include_department_manager')
+    @api.depends('parent_id', 'parent_id.parent_all_count', 'department_id', 'department_id.manager_id')
+    def _compute_managers(self):
+    def _compute_is_department_manager(self):
+    def _search_parent_ids(self, operator, operand):
+    def _search_is_department_manager(self, operator, operand):
+
+FILE: viin_hr/models/hr_employee.py
+
+class HrEmployee(models.Model):
+    _inherit = 'hr.employee'
+
+
+    vat = fields.Char(string='Personal Tax Code', related='address_home_id.vat', store=True, readonly=False, groups="hr.group_hr_user",
+                      help="The tax identification number that is related to the corresponding partner record specified in the field Private Address")
+    parent_ids = fields.One2many('hr.employee', string='Superiors', compute='_compute_managers', search='_search_parent_ids',
+                                  help="Direct and indirect managers", compute_sudo=True)
+    place_of_origin = fields.Char(string='Place of Origin', groups='hr.group_hr_user', tracking=True)
+    @api.model_create_multi
+    @api.returns('self', lambda value:value.id)
+    def create(self, vals_list):
+    def write(self, vals):
+    def unlink(self):
+
+FILE: viin_hr/models/__init__.py
+
+
+FILE: viin_hr/models/hr_employee_public.py
+
+class HrEmployeePublic(models.Model):
+    _inherit = 'hr.employee.public'
+
+
+    parent_ids = fields.One2many('hr.employee.public', string='Superiors', compute='_compute_managers', search='_search_parent_ids',
+                                  help="Direct and indirect managers", compute_sudo=True)
+
+FILE: viin_hr/migrations/14.0.0.1.1/post-migration.py
+
+def migrate(cr, version):

@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* to_org_chart
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-13 07:47+0000\n"
+"PO-Revision-Date: 2023-03-13 07:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_view.xml:0
+#, python-format
+msgid "- Archived"
+msgstr "- Đã lưu trữ"
+
+#. module: to_org_chart
+#: model:ir.model,name:to_org_chart.model_ir_actions_act_window_view
+msgid "Action Window View"
+msgstr "Chế độ xem Cửa sổ Hành động"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_renderer.js:0
+#, python-format
+msgid "All companies"
+msgstr "Tất cả công ty"
+
+#. module: to_org_chart
+#: model:ir.model,name:to_org_chart.model_base
+msgid "Base"
+msgstr "Cơ sở"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_view.xml:0
+#, python-format
+msgid "Change graph"
+msgstr ""
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_renderer.js:0
+#, python-format
+msgid "Company Objective"
+msgstr "Mục tiêu công ty"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_renderer.js:0
+#, python-format
+msgid "ORG CHART"
+msgstr "Sơ đồ tổ chức"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_view.js:0
+#: model:ir.model.fields.selection,name:to_org_chart.selection__ir_actions_act_window_view__view_mode__org
+#: model:ir.model.fields.selection,name:to_org_chart.selection__ir_ui_view__type__org
+#, python-format
+msgid "Org Chart"
+msgstr ""
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_renderer.js:0
+#, python-format
+msgid "Quarter "
+msgstr "Quý"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_view.xml:0
+#, python-format
+msgid "Rotate Left"
+msgstr "Xoay trái"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_view.xml:0
+#, python-format
+msgid "Rotate Right"
+msgstr "Xoay phải"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_view.xml:0
+#, python-format
+msgid "User"
+msgstr "Người dùng"
+
+#. module: to_org_chart
+#: model:ir.model,name:to_org_chart.model_ir_ui_view
+msgid "View"
+msgstr "Giao diện"
+
+#. module: to_org_chart
+#: model:ir.model.fields,field_description:to_org_chart.field_ir_actions_act_window_view__view_mode
+#: model:ir.model.fields,field_description:to_org_chart.field_ir_ui_view__type
+msgid "View Type"
+msgstr "Kiểu Giao diện"
+
+#. module: to_org_chart
+#. odoo-javascript
+#: code:addons/to_org_chart/static/src/js/org_chart_renderer.js:0
+#, python-format
+msgid "Year "
+msgstr "Năm "
+
+#. module: to_org_chart
+#. odoo-python
+#: code:addons/to_org_chart/models/model_base.py:0
+#, python-format
+msgid "You are not allowed to access"
+msgstr "Bạn không được phép truy cập"
