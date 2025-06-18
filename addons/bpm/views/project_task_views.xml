@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_task_view_todo_search" model="ir.ui.view">
+        <field name="name">project.task.view.todo.search</field>
+        <field name="model">project.task</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <search string="Todos">
+                <field name="name"/>
+                <field name="tag_ids"/>
+                <field name="user_ids"/>
+                <field name="personal_stage_type_id" string="Stage"/>
+                <filter name="open_tasks" string="Open" domain="[('state', 'in', ['01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal'])]"/>
+                <filter name="closed_tasks" string="Closed" domain="[('state', 'in', ['1_done','1_canceled'])]"/>
+                <filter string="Closed On" name="closed_on" domain="[('state', 'in', ['1_done','1_canceled'])]" date="date_last_stage_update"/>
+                <separator/>
+                <filter name="active_false" string="Archived" domain="[('active', '=', False)]"/>
+                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                        domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                        help="Show all records which has next action date is before today"/>
+                <filter invisible="1" string="Today Activities" name="activities_today"
+                        domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                        domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Tags" name="tags" help="By assigned tags" context="{'group_by':'tag_ids'}"/>
+                    <filter string="Assignees" name="user_ids" context="{'group_by': 'user_ids'}"/>
+                    <filter string="Stage" name="stage" help="By personal stages" context="{'group_by':'personal_stage_type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="project_task_with_process" model="ir.ui.view">
+        <field name="name">project.task.with.process</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="process_step_id" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <button name="action_complete_task" string="Complete task" type="object" class="btn-primary"
+                        attrs="{'invisible': ['|',('process_step_id','=',False),('state','=','1_done')]}"/>
+                <button name="action_reject_task" string="Reject task" type="object" class="btn-primary"
+                        attrs="{'invisible': ['|',('process_step_id','=',False),('state','=','1_done')]}"/>
+            </xpath>
+
+        </field>
+    </record>pro
+
+    <record id="project_task_action_todo" model="ir.actions.act_window">
+        <field name="name">To-dos</field>
+        <field name="res_model">project.task</field>
+        <field name="domain">[('user_ids', 'in', [uid]), ('project_id', '=', False), ('parent_id', '=', False)]</field>
+        <field name="view_mode">kanban,form,tree,activity</field>
+        <field name="search_view_id" ref="project_task_view_todo_search"/>
+        <field name="context">{'search_default_open_tasks': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No to-do found. Let's create one!
+            </p><p>
+                Keep your work organized by using memos and to-do lists.
+                Your to-do items are private by default, but you can choose to share them with others by adding them as assignees.
+            </p>
+        </field>
+    </record>
+
+</odoo>

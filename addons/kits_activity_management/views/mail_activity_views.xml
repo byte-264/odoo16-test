@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="kits_mail_activity_view_search" model="ir.ui.view">
+        <field name="name">kits.mail.activity.view.search</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="activity_tags_ids"/>
+                <filter string="Late Activities" name="activities_overdue"
+                        domain="[('date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                        help="Show all records which has next action date is before today"/>
+                <filter string="Today Activities" name="activities_today"
+                        domain="[('date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Future Activities" name="activities_upcoming_all"
+                        domain="[('date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))
+                        ]"/>
+                <filter string="Reschedule Activities" name="reschedule_activities"
+                    domain="[('is_reschedule', '=', True)]"/>
+            	<searchpanel>
+            		<field name="activity_type_id" icon="fa-tasks" enable_counters="1"/>
+            		<field name="user_id" select="multi" icon="fa-users" enable_counters="1"/>
+            		<field name="res_model_id" enable_counters="1"/>
+            		<field name="kits_state" string="State" enable_counters="1"/>
+            		<!-- <field name="is_reschedule" string="Reschedule" enable_counters="1"/> -->
+            	</searchpanel>
+            </xpath>
+            <xpath expr="//search/group" position="inside">
+                <filter string="Assigned To" name="user_id" context="{'group_by': 'user_id'}"/>
+                <filter string="Manager" name="manager_id" context="{'group_by': 'manager_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kits_mail_activity_view_tree" model="ir.ui.view">
+        <field name="name">kits.mail.activity.view.tree</field>
+        <field name="model">mail.activity</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+            	<attribute name="create">true</attribute>
+            	<attribute name="decoration-danger">state == 'cancel' or state == 'overdue'</attribute>
+            	<attribute name="decoration-warning">state == 'today' or state == 'planned'</attribute>
+            	<attribute name="decoration-success">state == 'done'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+            	<attribute name="widget">remaining_days</attribute>
+            	<attribute name="options">{'allow_order': '1'}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='activity_type_id']" position="after">
+            	<field name="user_id" widget="many2one_avatar_user" optional="show"/>
+            	<field name="manager_id" widget="many2one_avatar_user" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="after">
+            	<field name="state" decoration-success="state == 'done'" decoration-warning="state == 'today' or state == 'planned'" decoration-danger="state == 'cancel' or state == 'overdue'" widget="badge" string="State" optional="show"/>
+                <field name="activity_tags_ids" widget="many2many_tags" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="kits_calendar_mail_activity_view_form_popup" model="ir.ui.view">
+        <field name="name">kits.calendar.mail.activity.view.form.popup</field>
+        <field name="model">mail.activity</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="calendar.mail_activity_view_form_popup" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+            	<attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kits_mail_activity_view_form" model="ir.ui.view">
+        <field name="name">kits.mail.activity.view.form</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+            	<attribute name="create">true</attribute>
+            	<attribute name="readonly">true</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="today,planned,overdue,done" attrs="{'invisible': [('is_chatter','=',True)]}"/>
+                    <button id="kits_mail_activity_reschedule" string="Reschedule" name="kits_mail_activity_reschedule" attrs="{'invisible': [('state', '!=', 'cancel')]}" type="object" class="btn-primary"/>
+                    <button string="Mark As Done" name="action_done" type="object" class="btn-primary"
+                            context="{'mail_activity_quick_update': True}" attrs="{'invisible': ['|',('state', '=', 'cancel'),('is_chatter','=',True)]}"/>
+                    <button string="Done &amp; Schedule Next" name="action_done_schedule_next" type="object" class="btn-secondary"
+                        context="{'mail_activity_quick_update': True}" attrs="{'invisible': ['|',('state', '=', 'cancel'),('is_chatter','=',True)]}"/>
+                    <button string="Done &amp; Launch Next" name="action_done_schedule_next" type="object" class="btn-secondary"
+                        context="{'mail_activity_quick_update': True}" attrs="{'invisible': ['|',('state', '=', 'cancel'),('is_chatter','=',True)]}"/>
+                </header>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="after">
+                <field name="is_reschedule" invisible="1"/>
+                <field name="is_chatter" invisible="1"/>
+                <widget name="web_ribbon" title="Rescheduled" bg_color="text-bg-success" attrs="{'invisible': [('is_reschedule', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_chatter','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='summary']" position="after">
+                <field name="kits_ref_model" attrs="{'required': [('res_id' ,'=', 0)],'readonly': ['|',('res_id' ,'!=', 0),('state' ,'in', ['done','cancel'])],'invisible': [('is_chatter','=',True),('res_id' ,'!=', 0)]}"/>
+                <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="due_datetime" string="Due Date" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="replace">
+                <notebook>
+                    <page string = "Note">
+                        <field name="note" class="oe-bordered-editor" placeholder="Log a note..." attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
+                    </page>
+                    <page string = "Reminder" attrs="{'invisible': [('is_chatter','=',True)]}">
+                        <group>
+                            <field name="activity_reminder_ids" nolabel="1" colspan="2" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}">
+                                <tree string="Reminder" editable="bottom">
+                                    <field name="name" invisible='1'/>
+                                    <field name="reminder_type" required="1"/>
+                                    <field name="time" widget="float_time" string="Reminder Before"/>
+                                    <field name="type" required="1"/>
+                                    <field name="reminder_due_date" invisible='1'/>
+                                    <field name="automation_id" invisible='1'/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+            <xpath expr="//footer/button[@id='mail_activity_schedule']" position="attributes">
+                <attribute name="attrs">{'invisible': [('id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="manager_id" widget="many2one_avatar_user" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
+            	<field name="activity_tags_ids" widget="many2many_tags" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='activity_type_id']" position="attributes">
+            	<attribute name="attrs">{'readonly': [('state', 'in', ['done','cancel'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='summary']" position="attributes">
+            	<attribute name="attrs">{'readonly': [('state', 'in', ['done','cancel'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="attributes">
+            	<attribute name="attrs">{'readonly': [('state', 'in', ['done','cancel'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+            	<attribute name="attrs">{'readonly': [('state', 'in', ['done','cancel'])]}</attribute>
+            	<attribute name="domain"></attribute>
+            	<attribute name="invisible"></attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+            	<attribute name="attrs">{'readonly': [('state', 'in', ['done','cancel'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

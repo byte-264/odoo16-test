@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.FormView" t-inherit-mode="extension">
+        <xpath expr="//Layout/t[@t-component='props.Renderer']" position="before">
+            <t t-if="this.bpm.hasprocesses">
+                <div class="o_bpm_control_panel">
+                   <!-- <button t-on-click="debug" class="btn btn-outline-secondary">Debug</button> -->
+                    <t t-foreach="this.bpm.processes" t-as="process" t-key="process.id">
+                        <button t-on-click="startProcess" t-att-data-id="process.id" class="btn btn-outline-primary position-relative">
+                            Start "<t t-esc="process.name"/>" process
+                            <t t-if="process.active_instance_count > 0">
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+                                    <t t-esc="process.active_instance_count"/>
+                                    <span class="visually-hidden">instances</span>
+                                </span>
+                            </t>
+                        </button>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

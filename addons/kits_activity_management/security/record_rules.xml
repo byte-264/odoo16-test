@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Mail Activity Rules -->
+        <record id="rule_activity_user" model="ir.rule">
+            <field name="name">Activity User</field>
+            <field name="model_id" ref="mail.model_mail_activity"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('kits_activity_management.kits_group_activity_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        <record id="rule_activity_manager" model="ir.rule">
+            <field name="name">Activity Manager</field>
+            <field name="model_id" ref="mail.model_mail_activity"/>
+            <field name="domain_force">['|',('user_id', '=', user.id),('manager_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('kits_activity_management.kits_group_activity_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        <record id="rule_activity_admin" model="ir.rule">
+            <field name="name">Activity Administrator</field>
+            <field name="model_id" ref="mail.model_mail_activity"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('kits_activity_management.kits_group_activity_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        <record id="kits_multi_company_rule" model="ir.rule">
+            <field name="name">Kits Multi Company Rule</field>
+            <field name="model_id" ref="mail.model_mail_activity"/>
+            <field name="domain_force">['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+    </data>
+</odoo>

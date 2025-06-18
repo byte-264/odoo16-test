@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="activityDashboard">
+        <section>
+        <div class="container activity_dashboard">
+            <div class="row">
+                <div class="col-md-12 mb-4 mt32 mb16">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <h2 class="section-header">Activity Dashboard</h2>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <form class="form-group d-flex just-end">
+                                <select id="activity_users" class="form-control tk-form-control col-md-4 mr8">
+                                    <option value="my_activity" selected="selected">My Activities</option>
+                                </select>
+                                <select id="activity_filter" class="form-control tk-form-control col-md-4">
+                                    <option value="all_time">All Time</option>
+                                    <option value="yesterday">Yesterday</option>
+                                    <option value="this_week">This Week</option>
+                                    <option value="this_month">This Month</option>
+                                    <option value="this_year">This Year</option>
+                                    <option value="pre_year">Previous Year</option>
+                                    <option id="custom_range"
+                                            value="custom_range">Custom</option>
+                                </select>
+                                <input type="text" id="filter_start_date" class="form-control tk-form-control col-md-3 mr8 ml16 custom_search d-none" name="filter_start_date" placeholder="Start Date" /> <span class="custom_search d-none">_</span>
+                                <input type="text" id="filter_end_date" class="form-control tk-form-control col-md-3 mr8 ml8 custom_search d-none" name="filter_end_date" placeholder="End Date" />
+                                <button id="filter_activity" class="btn btn-primary tk-btn-prime col-md-2 custom_search d-none">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+
+		<div class="container activity_dashboard">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-6 activity-stats" data-type="all">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-info">
+                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
+                                        <span class="svg-icon svg-icon-2x svg-icon-info">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect x="8" y="9" width="3" height="10" rx="1.5" fill="black"></rect>
+                                                <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="black"></rect>
+                                                <rect x="18" y="11" width="3" height="8" rx="1.5" fill="black"></rect>
+                                                <rect x="3" y="13" width="3" height="6" rx="1.5" fill="black"></rect>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text fw-bolder fs-2" id="all_counts">0</span>
+                                    <span class="text-muted fw-bold mt-1">All Activities</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-6 activity-stats" data-type="plan">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-warning">
+                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
+                                        <span class="svg-icon svg-icon-2x svg-icon-warning">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black"></path>
+                                                <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black"></path>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text fw-bolder fs-2" id="plan_counts">0</span>
+                                    <span class="text-muted fw-bold mt-1">Planned Activities</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-6 activity-stats" data-type="complete">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-success">
+                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
+                                        <span class="svg-icon svg-icon-2x svg-icon-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path d="M6 8.725C6 8.125 6.4 7.725 7 7.725H14L18 11.725V12.925L22 9.725L12.6 2.225C12.2 1.925 11.7 1.925 11.4 2.225L2 9.725L6 12.925V8.725Z" fill="black"></path>
+                                                <path opacity="0.3" d="M22 9.72498V20.725C22 21.325 21.6 21.725 21 21.725H3C2.4 21.725 2 21.325 2 20.725V9.72498L11.4 17.225C11.8 17.525 12.3 17.525 12.6 17.225L22 9.72498ZM15 11.725H18L14 7.72498V10.725C14 11.325 14.4 11.725 15 11.725Z" fill="black"></path>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text fw-bolder fs-2" id="complete_counts">0</span>
+                                    <span class="text-muted fw-bold mt-1">Completed Activities</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-6 activity-stats" data-type="overdue">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-danger">
+                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
+                                        <span class="svg-icon svg-icon-2x svg-icon-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.3" d="M14 12V21H10V12C10 11.4 10.4 11 11 11H13C13.6 11 14 11.4 14 12ZM7 2H5C4.4 2 4 2.4 4 3V21H8V3C8 2.4 7.6 2 7 2Z" fill="black"></path>
+                                                <path d="M21 20H20V16C20 15.4 19.6 15 19 15H17C16.4 15 16 15.4 16 16V20H3C2.4 20 2 20.4 2 21C2 21.6 2.4 22 3 22H21C21.6 22 22 21.6 22 21C22 20.4 21.6 20 21 20Z" fill="black"></path>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text fw-bolder fs-2" id="overdue_counts">0</span>
+                                    <span class="text-muted fw-bold mt-1">Overdue Activities</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+            </div>
+            <div class="mt64 mb16">
+                <h4>Activity Stats</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-none all_users_activities">
+                    <div class="box mt16 mb16">
+                        <h5 class="mb16">All Users Activities</h5>
+                        <div id="all_user_activities"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box tk-box mt16 mb16 height-auto">
+                        <div class="table-responsive-md">
+                            <h5 class="mb16 mt8">Today Activities</h5>
+                            <table id="today-activities" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Activity Type</th>
+                                        <th>Assigned To</th>
+                                        <th>Date Deadline</th>
+                                        <th class="text-center">Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activities-data"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box tk-box mt16 mb16 height-auto">
+                        <div class="table-responsive-md">
+                            <h5 class="mb16 mt8">All Activities</h5>
+                            <table id="all-activities" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Activity Type</th>
+                                        <th>Assigned To</th>
+                                        <th>Date Deadline</th>
+                                        <th class="text-center">Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activities-data"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box tk-box mt16 mb16 height-auto">
+                        <div class="table-responsive-md">
+                            <h5 class="mb16 mt8">Planned Activities</h5>
+                            <table id="plan-activities" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Activity Type</th>
+                                        <th>Assigned To</th>
+                                        <th>Date Deadline</th>
+                                        <th class="text-center">Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activities-data"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box tk-box mt16 mb16 height-auto">
+                        <div class="table-responsive-md">
+                            <h5 class="mb16 mt8">Completed Activities</h5>
+                            <table id="complete-activities" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Activity Type</th>
+                                        <th>Assigned To</th>
+                                        <th>Date Deadline</th>
+                                        <th class="text-center">Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activities-data"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box tk-box mt16 mb16 height-auto">
+                        <div class="table-responsive-md">
+                            <h5 class="mb16 mt8">Overdue Activities</h5>
+                            <table id="overdue-activities" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Activity Type</th>
+                                        <th>Assigned To</th>
+                                        <th>Date Deadline</th>
+                                        <th class="text-center">Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activities-data"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+        </section>
+    </t>
+</templates>

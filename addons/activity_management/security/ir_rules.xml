@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- User activity -->
+    <record id="mail_activity_only_see_there_own_activities" model="ir.rule">
+       <field name="name">User can only see his/her activity</field>
+       <field name="model_id" ref="mail.model_mail_activity"/>
+       <field name="perm_read" eval="True"/>
+       <field name="perm_write" eval="True"/>
+       <field name="perm_create" eval="True"/>
+       <field name="perm_unlink" eval="False"/>
+       <field name="domain_force">['|',('user_id','=',user.id), ('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('activity_management.group_activity_user'))]"/>
+    </record>
+    <!-- Admin Activity -->
+    <record id="mail_activity_only_see_all_activities" model="ir.rule">
+       <field name="name">All activity for admin</field>
+       <field name="model_id" ref="mail.model_mail_activity"/>
+       <field name="perm_read" eval="True"/>
+       <field name="perm_write" eval="True"/>
+       <field name="perm_create" eval="True"/>
+       <field name="perm_unlink" eval="True"/>
+       <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('activity_management.group_activity_manager'))]"/>
+    </record>
+</odoo>
