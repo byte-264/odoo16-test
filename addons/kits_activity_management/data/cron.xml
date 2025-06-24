@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+    <record id="kits_cron_automation_rules_unlink" model="ir.cron">
+        <field name="name">Automation Rules Unlink</field>
+        <field name="model_id" ref="model_kits_activity_reminder"/>
+        <field name="state">code</field>
+        <field name="code">model.kits_cron_unlink_automation_tules()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

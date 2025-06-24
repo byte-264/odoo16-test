@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.client" id="kits_activity_view_dash_action">
+            <field name="name">Activity Viewer</field>
+            <field name="tag">activity_dashboard_tag</field>
+        </record>
+
+        <record id="kits_activity_view_action" model="ir.actions.act_window">
+            <field name="name">Activity</field>
+            <field name="res_model">mail.activity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="mail.mail_activity_view_tree"/>
+        </record>
+
+        <menuitem name="Activity Manager" id="main_manue_activity_viewer" web_icon="kits_activity_management,static/description/icon.png"/>
+        <menuitem id="menu_kits_activity_view_dash" name="Dashboard" parent="main_manue_activity_viewer" action="kits_activity_view_dash_action" sequence="1"/>
+        <menuitem id="menu_kits_activity_view" name="Activities" parent="main_manue_activity_viewer" action="kits_activity_view_action" sequence="2"/>
+        <menuitem id="menu_kits_activity_configuration" name="Configuration" parent="main_manue_activity_viewer" groups="kits_activity_management.kits_group_activity_admin" sequence="3"/>
+    </data>
+</odoo>

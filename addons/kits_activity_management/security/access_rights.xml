@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Mail Activity Access -->
+        <record model="ir.model.access" id="kits_access_for_activities">
+            <field name="name">KITS Activity Access</field>
+            <field name="model_id" ref="mail.model_mail_activity"/>
+            <field name="group_id" ref="kits_activity_management.kits_group_activity_user"/>
+            <field name="perm_read">1</field>
+            <field name="perm_write">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">1</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="kits_activity_management_categ">
+            <field name="name">Activity</field>
+            <field name="description">User access level for Activity Management</field>
+        </record>
+        <record id="kits_group_activity_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="kits_activity_management_categ" />
+            <field name="comment">The user can access their own activity records.</field>
+        </record>
+        <record id="kits_group_activity_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('kits_group_activity_user'))]"/>
+            <field name="category_id" ref="kits_activity_management_categ" />
+            <field name="comment">The user can access their own activity records, as well as the records they have been assigned to manage.</field>
+        </record>
+        <record id="kits_group_activity_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="implied_ids" eval="[(4, ref('kits_group_activity_manager'))]"/>
+            <field name="category_id" ref="kits_activity_management_categ" />
+            <field name="comment">The user can access all of their activity records.</field>
+        </record>
+        <record id="base.group_user" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('kits_activity_management.kits_group_activity_user'))]"/>
+        </record>
+    </data>
+</odoo>

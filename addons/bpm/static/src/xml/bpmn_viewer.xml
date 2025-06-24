@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="bpm.BpmnViewer" owl="1">
+        <t t-if="state.hasManagerGroup">
+            <button t-on-click.stop="check_diagram" class="btn btn-warning">
+            <i class="fa fa-refresh"></i> Sync diagram</button>
+        </t>
+        <div t-ref="bpmn_viewer" class="o_bpmn_viewer"></div>
+    </t>
+</templates>

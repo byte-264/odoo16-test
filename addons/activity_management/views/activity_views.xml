@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mail_activity_tree_view" model="ir.ui.view">
+            <field name="name">mail.activity.tree.view</field>
+            <field name="model">mail.activity</field>
+            <field name="arch" type="xml">
+                <tree string="Activities" decoration-warning="state == 'today'"  decoration-success="complete_date" decoration-danger="date_deadline &lt; current_date and not complete_date" default_order="date_deadline" create="false">
+                    <field name="res_name" string="Title" />
+                    <field name="activity_type_id" />
+                    <field name="summary" />
+                    <field name="date_deadline" />
+                    <field name="complete_date" />
+                    <field name="state" string="Status" />
+                </tree>
+            </field>
+        </record>
+        <record id="mail_activity_inherit_view_form" model="ir.ui.view">
+            <field name="name">mail.activity.inherit.view.form</field>
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_form_popup" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]" position="before">
+                    <widget name="web_ribbon" title="Overdue" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'overdue')]}"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <widget name="web_ribbon" title="Completed" bg_color="bg-success" attrs="{'invisible': [('complete_date', '=', False)]}"/>
+                    <widget name="web_ribbon" title="Today" bg_color="bg-warning" attrs="{'invisible': [('state', '!=', 'today')]}"/>
+                </xpath>
+                <field name="activity_type_id" position="before">
+                    <field name="res_name" string="Title" />
+                    <field name="active" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </field>
+                <field name="user_id" position="after">
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" />
+                    <field name="checklist_progress" widget="progressbar" attrs="{'invisible': [('activity_checklist_ids', '=', [])]}"  />
+                    <field name="complete_date" attrs="{'invisible': [('complete_date', '=', False)]}"  />
+                </field>
+                <field name="summary" position="after">
+                    <field name="priority" widget="priority" />
+                </field>
+                <field name="note" position="replace">
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description" nolabel="1" />
+                        </page>
+                        <page string="Note" name="note">
+                            <field name="note" nolabel="1" />
+                        </page>
+                        <page name="checklist" string="CheckList">
+                            <field name="activity_checklist_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name" />
+                                    <field name="is_checked"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name" />
+                                        <field name="is_checked" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </field>
+                <xpath expr="//button[@name='action_close_dialog'][1]" position="replace">
+                    <button string="New Activity" name="action_open_activity" type="object" class="btn-primary" attrs="{'invisible': [('id', '=', False)]}" />
+                </xpath>
+                <xpath expr="//button[@name='action_close_dialog'][1]"  position="replace">
+                   <button string="Save" name="action_close_dialog" type="object" class="btn-primary" />
+                </xpath>
+                <xpath expr="//button[@special='cancel']" position="replace" />
+                <xpath expr="//button[@name='action_done']" position="replace" />
+                <xpath expr="//button[@name='action_done_schedule_next'][1]" position="replace" />
+                <xpath expr="//footer" position="before">
+                    <div style="margin-top:8px;">
+                        <button string="New Activity" name="action_open_activity" type="object" class="btn-primary mr8" style="mr8" attrs="{'invisible': [('id', '=', False)]}" />
+                        <button attrs="{'invisible': [('complete_date', '!=', False)]}" string="Mark as Done" name="action_done" type="object" class="btn-secondary" data-hotkey="w" context="{'mail_activity_quick_update': True}"/>
+                        <button attrs="{'invisible': [('complete_date', '!=', False)]}" string="Done &amp; Schedule Next" name="action_done_schedule_next" type="object" class="btn-secondary" data-hotkey="x" context="{'mail_activity_quick_update': True}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//footer" position="replace" />
+            </field>
+        </record>
+        <record id="mail_activity_kanban_view" model="ir.ui.view">
+            <field name="name">mail.activity.kanban.view</field>
+            <field name="model">mail.activity</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column o_opportunity_kanban" quick_create_view="false"
+                    archivable="true" sample="1">
+                    <field name="color"/>
+                    <field name="priority"/>
+                    <field name="checklist_progress"/>
+                    <field name="date_deadline"/>
+                    <field name="complete_date"/>
+                    <field name="res_name"/>
+                    <field name="activity_type_id"/>
+                    <field name="activity_checklist_ids"/>
+                    <field name="user_id"/>
+                    <field name="active"/>
+                    <progressbar field="state" colors='{"done": "success", "planned": "info", "today": "warning", "overdue": "danger"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_title">
+                                        <strong><field name="activity_type_id"/></strong>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="res_name"/><br />
+                                        <span>Date Deadline: </span><strong><field name="date_deadline"/></strong>
+                                        <t t-if="record.complete_date.raw_value">
+                                            <br />
+                                            <span>Complete Date: </span><strong><field name="complete_date" widget="date"/></strong>
+                                        </t>
+                                    </div>
+                                    <div>
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="priority" widget="priority" />
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="user_id" widget="many2one_avatar_user"/>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_bottom_left mt4" t-if="record.checklist_progress.raw_value != 0.0">
+                                            <field name="checklist_progress" widget="progressbar" options="{'color_field': 'color'}"/>
+                                     </div>
+                                </div>
+                                <div class="oe_clear"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="mail_activity_view_search" model="ir.ui.view">
+            <field name="name">mail.activity.search</field>
+            <field name="model">mail.activity</field>
+            <field name="arch" type="xml">
+                <search string="Activities">
+                    <field name="res_name"/>
+                    <field name="activity_type_id"/>
+                    <field name="date_deadline"/>
+                    <field name="complete_date"/>
+                    <field name="user_id" string="My Activities"/>
+                    <filter string="My Activities" domain="[('user_id', '=', uid)]" name="my_activity"/>
+                    <separator />
+                    <filter string="Overdue Activities" domain="[('date_deadline', '&lt;', current_date),('complete_date', '=', False)]" name="overdue_activity"/>
+                    <filter string="Today Activities" domain="[('date_deadline', '=', current_date)]" name="today_activity"/>
+                    <filter string="Upcoming Activities" domain="[('date_deadline', '&gt;', current_date), ('complete_date', '=', False)]" name="upcoming_activity"/>
+                    <separator />
+                    <filter string="Completed Activities" domain="[('complete_date', '!=', False)]" name="complete_activity"/>
+                    <separator />
+                    <filter string="Archived" domain="[('active', '=', False)]" name="archived"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_user" string="User" domain="[]" context="{'group_by':'user_id'}"/>
+
+                        <filter name="group_activity_type" string="Activity Type" domain="[]" context="{'group_by':'activity_type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_mail_activity_calendar" model="ir.ui.view">
+            <field name="name">mail.activity.calendar</field>
+            <field name="model">mail.activity</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar date_start="date_deadline" string="Activity"  mode="month" hide_time="true" quick_add="False" color="activity_type_id" event_limit="5">
+                    <field name="res_name"/>
+                    <field name="activity_type_id" filters="1"  />
+                    <field name="user_id" filters="1" />
+                    <field name="state" />
+                    <field name="summary" invisible="1" />
+                </calendar>
+            </field>
+        </record>
+        <record id="mail_my_activities_action" model="ir.actions.act_window">
+            <field name="name">My Activities</field>
+            <field name="res_model">mail.activity</field>
+            <field name="view_mode">tree,form,kanban,calendar</field>
+            <field name="view_id" ref="mail_activity_tree_view"/>
+        </record>
+        <record id="mail_admin_activities_action" model="ir.actions.act_window">
+            <field name="name">My Activities</field>
+            <field name="res_model">mail.activity</field>
+            <field name="view_mode">tree,form,kanban,calendar</field>
+            <field name="context">{'search_default_user_id': uid}</field>
+            <field name="view_id" ref="mail_activity_tree_view"/>
+        </record>
+        <menuitem name="Activities"
+            id="main_menu_activity"
+            sequence="5"
+            web_icon="activity_management,static/description/icon.png"
+            groups="activity_management.group_activity_user,activity_management.group_activity_manager"
+        />
+        <menuitem name="Activities"
+            id="menu_activity"
+            parent="main_menu_activity"
+            action="mail_admin_activities_action"
+            sequence="2"
+            groups="activity_management.group_activity_user,activity_management.group_activity_manager"
+        />
+        <menuitem name="Configuration"
+            id="menu_activity_configuration"
+            parent="main_menu_activity"
+            sequence="3"
+            groups="activity_management.group_activity_manager"
+        />
+    </data>
+</odoo>

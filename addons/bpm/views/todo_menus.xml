@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem
+        id="menu_todo_todos"
+        name="To-do"
+        action="project_task_action_todo"
+        web_icon="bpm,static/description/icon.png">
+    </menuitem>
+
+    <menuitem id="menu_todo_bpmn" name="Processes" parent="menu_todo_todos" action="action_bpmn_process"/>
+</odoo>

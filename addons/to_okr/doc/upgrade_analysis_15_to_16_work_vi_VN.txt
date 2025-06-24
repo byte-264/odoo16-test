@@ -1,0 +1,186 @@
+---Classes in module ---
+
+FILE: to_okr/__init__.py
+
+
+FILE: to_okr/models/okr_node.py
+# Không thay đổi
+class OkrNode(models.Model):
+    _name = 'okr.node'
+
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    _description = 'OKR Node'
+    _mail_post_access = 'read'
+
+    _sql_constraints = [
+        (
+
+        'okr_success_points_threshold',
+
+        'CHECK(okr_success_points_threshold >= 0 AND okr_success_points_threshold <= 1)',
+
+        'OKR success point threshold value must be in range from 0 to 1'
+
+        )
+
+    ]
+
+    def _default_year(self):
+    def _default_quarter(self):
+    def _default_mode(self):
+    name = fields.Char(string="Title", tracking=True, required=True, readonly=False, states={'confirmed': [('readonly', True)],
+                                                                                             'cancelled': [('readonly', True)]})
+    year = fields.Char(default=_default_year, required=True, compute='_compute_year', store=True, recursive=True,
+                       readonly=False, states={'confirmed': [('readonly', True)],
+                                               'cancelled': [('readonly', True)]})
+    quarter = fields.Selection([('0', 'Q1'), ('1', 'Q2'), ('2', 'Q3'), ('3', 'Q4')],
+                               default=_default_quarter,
+                               compute='_compute_quarter', store=True, recursive=True,
+                               readonly=False, states={'confirmed': [('readonly', True)],
+                                                       'cancelled': [('readonly', True)]})
+    time_frame = fields.Char(string='Time Frame', compute='_compute_time_frame', search='_search_okr_time_frame')
+    quarter_full_name = fields.Char(string='Quarter Full Name', compute='_compute_time_frame')
+    description = fields.Text(string="Description", readonly=False, states={'confirmed': [('readonly', True)],
+                                                                            'cancelled': [('readonly', True)]})
+    mode = fields.Selection([('company', 'Company'),
+                             ('department', 'Department'),
+                             ('employee', 'Employee')], string="Target", default=_default_mode, tracking=True, readonly=False, states={'confirmed': [('readonly', True)],
+                                                                                                                                       'cancelled': [('readonly', True)]})
+    type = fields.Selection([('committed', 'Committed'),
+                             ('aspirational', 'Aspirational')], string="Type", default='committed', tracking=True, required=True,
+                             states={'draft': [('readonly', False)]})
+    state = fields.Selection([('draft', 'Draft'),
+                             ('confirmed', 'Confirmed'),
+                             ('cancelled', 'Cancelled')], default='draft', string="Status", tracking=True, readonly=True)
+    result = fields.Selection([('successful', 'Successful'),
+                              ('failed', 'Failed')], string="Result", tracking=True, compute='_compute_result', store=True,
+                               help="Based on point, if point is greater than or equal to OKR success points threshold of top parent it will be Successful,"
+                               " and otherwise")
+    company_id = fields.Many2one('res.company', string="Company", compute='_compute_company', store=True, tracking=True, recursive=True,
+                                 readonly=False, states={'confirmed': [('readonly', True)], 'cancelled': [('readonly', True)]})
+    department_id = fields.Many2one('hr.department', string="Department", compute='_compute_department', readonly=False, store=True)
+    employee_id = fields.Many2one('hr.employee', string="Employee", default=lambda self: self.env.user.employee_id)
+    owner = fields.Char(string="Owner", compute='_compute_owner_and_user_id', store=True, tracking=True)
+    user_id = fields.Many2one('res.users', string="User", compute='_compute_owner_and_user_id', store=True, tracking=True)
+    parent_id = fields.Many2one('okr.node', string='Objective', tracking=True, ondelete='restrict',
+                                domain="[('id','!=',id),'|','&',('mode','=','employee'),('department_id','=',department_id),'&',('mode','=','department'),('company_id','=',company_id)]",
+                                help="Choose an Objective of which this is a key result.")
+    child_ids = fields.One2many('okr.node', 'parent_id', string="Key Results", states={'draft': [('readonly', False)]})
+    key_results_count = fields.Integer(string='Key Results Count', compute='_compute_key_results_count')
+    recursive_child_ids = fields.Many2many('okr.node', 'recursive_objective', 'parent_id', 'child_id', string='Recursive Children', recursive=True,
+                                           compute='_compute_recursive_child_ids', store=True)
+    points = fields.Float(string="Points", digits=(2, 2), compute='_compute_points', readonly=False, store=True, tracking=True, recursive=True, group_operator='avg')
+    progress = fields.Float(string='Progress', compute='_compute_progress', group_operator='avg')
+    weight = fields.Float(string="Weight", tracking=True, group_operator='avg')
+    okr_success_points_threshold = fields.Float(string="OKR success point threshold", store=True, compute='_compute_okr_success_points_threshold', readonly=False,
+                                                states={'confirmed': [('readonly', True)], 'cancelled': [('readonly', True)]}, recursive=True,
+                                                help="Use this field to set value to compute whether the employee"
+                                                " accomplish the OKR node successful or failed.")
+    @api.constrains('mode')
+    def _check_parent(self):
+    def action_set_to_draft(self):
+    def button_confirm(self):
+    def button_cancel(self):
+    def _compute_key_results_count(self):
+    @api.depends('year', 'quarter')
+    def _compute_time_frame(self):
+    @api.depends('points')
+    def _compute_progress(self):
+    @api.depends('mode', 'employee_id')
+    def _compute_department(self):
+    @api.depends('parent_id.company_id')
+    def _compute_company(self):
+    @api.depends('parent_id.year')
+    def _compute_year(self):
+    @api.depends('parent_id.quarter')
+    def _compute_quarter(self):
+    def _get_nested_children(self):
+    @api.depends('child_ids', 'child_ids.recursive_child_ids')
+    def _compute_recursive_child_ids(self):
+    @api.constrains('name')
+    def _check_constrains_name(self):
+    @api.depends('mode', 'company_id', 'department_id', 'employee_id')
+    def _compute_owner_and_user_id(self):
+    @api.depends('parent_id.okr_success_points_threshold', 'company_id')
+    def _compute_okr_success_points_threshold(self):
+    @api.depends('points', 'type', 'okr_success_points_threshold')
+    def _compute_result(self):
+    @api.depends('child_ids', 'child_ids.points', 'child_ids.weight', 'child_ids.state')
+    def _compute_points(self):
+    @api.constrains('points')
+    def _check_constrains_points(self):
+    @api.constrains('mode', 'department_id')
+    def _check_department_owner(self):
+    @api.constrains('mode', 'employee_id')
+    def _check_employee_owner(self):
+    @api.constrains('mode', 'company_id')
+    def _check_company_owner(self):
+    @api.constrains('year')
+    def _check_constrains_year(self):
+    def _search_okr_time_frame(self, operator, value):
+    def _name_get(self):
+    def name_get(self):
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_draft(self):
+
+FILE: to_okr/models/res_config_setting.py
+# Không thay đổi
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
+
+
+    okr_success_points_threshold = fields.Float(string="OKR Success Points Threshold",
+                                   help="Setting this field to set standard value for OKR node, \n"
+                                   "help evaluate whether the employee accomplish successful or failed based on points value.", related='company_id.okr_success_points_threshold', readonly=False)
+
+FILE: to_okr/models/company.py
+
+class Company(models.Model):
+    _inherit = 'res.company'
+
+
+    _sql_constraints = [
+        (
+
+        'okr_success_points_threshold',
+
+        'CHECK(okr_success_points_threshold >= 0 AND okr_success_points_threshold <= 1)',
+
+        'OKR success point threshold value must be in range from 0 to 1'
+
+        )
+
+    ]
+
+    okr_success_points_threshold = fields.Float(string="OKR Success Points Threshold", default=0.7)
+
+FILE: to_okr/models/hr_employee_base.py
+# Không thay đổi
+class HrEmployeeBase(models.AbstractModel):
+    _inherit = 'hr.employee.base'
+
+
+    okr_node_ids = fields.One2many('okr.node', 'employee_id', string='OKR', readonly=True)
+    okr_nodes_count = fields.Integer(string='OKR Count', compute='_compute_okr_nodes_count', compute_sudo=True)
+    def _compute_okr_nodes_count(self):
+    def action_view_okr(self):
+
+FILE: to_okr/models/__init__.py
+
+
+FILE: to_okr/migrations/14.0.0.1.1/pre-migrate.py
+# Không thay đổi
+def _adjust_okr_success_points_threshold(env):
+    env.cr.execute("""
+    ALTER TABLE okr_node ADD COLUMN IF NOT EXISTS okr_success_points_threshold double precision;
+    UPDATE okr_node SET okr_success_points_threshold = 0.7 WHERE okr_success_points_threshold < 0 OR okr_success_points_threshold > 1
+    """)
+
+def migrate(cr, version):
+
+FILE: to_okr/migrations/14.0.0.1.2/post-migrate.py
+# Không thay đổi
+def _update_groups(env):
+def _update_ir_rules(env):
+def migrate(cr, version):

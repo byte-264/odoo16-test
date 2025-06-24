@@ -1,0 +1,19 @@
+<odoo>
+    <record id="partner_inherit_in_ot_mail_form_view" model="ir.ui.view">
+        <field name="name">partner.inherit.in.out.mail.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button type="object" class="oe_stat_button" icon="fa-reply" attrs="{'invisible': [('total_in_mail', '=', 0)]}"
+                        name="action_view_partner_in_mail" >
+                    <field name="total_in_mail" widget="statinfo"/>
+                </button>
+                <button type="object" class="oe_stat_button" icon="fa-share" attrs="{'invisible': [('total_out_mail', '=', 0)]}"
+                        name="action_view_partner_out_mail">
+                    <field name="total_out_mail" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

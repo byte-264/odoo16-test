@@ -1,0 +1,45 @@
+---Classes in module ---
+
+FILE: to_okr_project/__init__.py
+
+
+FILE: to_okr_project/models/okr_node.py
+
+class OkrNode(models.Model):
+    _inherit = 'okr.node'
+
+
+    project_task_ids = fields.One2many('project.task', 'okr_node_id', string="Project Tasks")
+    project_ids = fields.Many2many('project.project', 'okr_node_project_rel', 'node_id', 'project_id', string='Projects',
+                                   compute='_compute_projects', store=True)
+    project_tasks_count = fields.Integer('Project Tasks Count', compute='_compute_project_tasks_count')
+    projects_count = fields.Integer('Projects Count', compute='_compute_projects_count')
+    @api.depends('project_task_ids.project_id')
+    def _compute_projects(self):
+    def _compute_project_tasks_count(self):
+    def _compute_projects_count(self):
+    def action_view_project_tasks(self):
+    def action_view_projects(self):
+
+FILE: to_okr_project/models/project_task.py
+
+class Task(models.Model):
+    _inherit = "project.task"
+
+
+    okr_node_id = fields.Many2one('okr.node', string="OKR Key Result", help="The OKR key result for which this task is.")
+
+FILE: to_okr_project/models/__init__.py
+
+
+FILE: to_okr_project/models/project_project.py
+
+class ProjectProject(models.Model):
+    _inherit = 'project.project'
+
+
+    okr_node_ids = fields.Many2many('okr.node', 'okr_node_project_rel', 'project_id', 'node_id', string="OKR", readonly=True,
+                                    help="Store all the objectives and key results related to this project.")
+    okr_nodes_count = fields.Integer('Project Task', compute='_compute_okr_nodes_count')
+    def _compute_okr_nodes_count(self):
+    def action_view_okr_nodes(self):

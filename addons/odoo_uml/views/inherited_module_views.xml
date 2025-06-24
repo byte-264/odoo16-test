@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+            <record id="view_module_form" model="ir.ui.view">
+            <field name="name">view.module.form</field>
+            <field name="model">ir.module.module</field>
+            <field name="inherit_id" ref="base.module_form" />
+            <field name="arch" type="xml">
+                
+                <xpath expr="//notebook[@groups='base.group_no_one']" position="inside">
+                    <page string="UML" name="uml_diagrams">
+                        <field name="puml_dependency_diagram_png" widget="image"/>
+                        <field name="puml_inv_dependency_diagram_png" widget="image"/>
+                        <field name="puml_class_diagram_png" widget="image"/>
+                    </page>
+                </xpath>
+                
+            </field>
+        </record>
+        <record id="odoo_uml_view_form" model="ir.ui.view">
+            <field name="name">odoo_uml_view_form</field>
+            <field name="model">odoo.uml</field>
+            <field name="arch" type="xml">
+                <form string="odoo_uml_form">
+                    <sheet>
+                        <group>
+                            <field name="module" />
+                            <field name="puml_dependency_diagram_png" widget="image"/>
+                            <field name="puml_inv_dependency_diagram_png" widget="image"/>
+                            <field name="puml_class_diagram_png" widget="image"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="odoo_uml_action" model="ir.actions.act_window">
+            <field name="name">Odoo UML</field>
+            <field name="res_model">odoo.uml</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="odoo_uml_root" name="UML" action="odoo_uml_action" sequence="2"/>
+
+</odoo>
