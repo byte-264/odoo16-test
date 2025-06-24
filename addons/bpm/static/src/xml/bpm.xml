@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<templates xml:space="preserve">
-    <t t-name="bpm.Bpm" owl="1">
-        <h1>BPM</h1>
-
-        <div t-ref="bpmn" class="diagram-container"/>
-    </t>
-</templates>

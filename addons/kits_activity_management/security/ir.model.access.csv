@@ -1,5 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-access_kits_reschedule_wizard,access.kits.reschedule.wizard,model_kits_reschedule_wizard,,1,1,1,1
-access_kits_activity_reminder,access.kits.activity.reminder,model_kits_activity_reminder,,1,1,1,1
-access_mass_activity_create_wizard,access.mass.activity.create.wizard,model_mass_activity_create_wizard,,1,1,1,1
-access_kits_activity_tags,access.kits.activity.tags,model_kits_activity_tags,,1,1,1,1
