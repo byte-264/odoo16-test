@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="axis_helpdesk_ticket_travel_location_tree" model="ir.ui.view">
+            <field name="name">travel.location.tree</field>
+            <field name="model">travel.location</field>
+            <field name="arch" type="xml">
+                <tree string="Helpdesk Travel Locations">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="axis_helpdesk_ticket_travel_location_form" model="ir.ui.view">
+            <field name="name">travel.location.form</field>
+            <field name="model">travel.location</field>
+            <field name="arch" type="xml">
+                <form string="Helpdesk Travel Locations">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="helpdesk_ticket_travel_location" model="ir.actions.act_window">
+            <field name="name">Travel Locations</field>
+            <field name="res_model">travel.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="helpdesk_ticket_travel_location_menu" name="Travel Locations" parent="helpdesk_ticket_configuration" action="helpdesk_ticket_travel_location" sequence="36"/>
+
+    </data>
+</odoo>

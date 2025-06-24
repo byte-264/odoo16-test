@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_travel_request_form" model="ir.ui.view">
+            <field name="name">employee.travel.request.form</field>
+            <field name="model">employee.travel.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Confirm" type="object" name="action_confirm" states="draft" class="oe_highlight"/>
+                        <button string="Reject" type="object" name="action_reject" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,rejected"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="helpdesk_ticket_id"/>
+                                <field name="employee_id"/>
+                                <field name="manager_id"/>
+                                <field name="company_id"/>
+                                <field name="request_by_id"/>
+                                <field name="confirm_by_id"/>
+                                <field name="approved_by_id"/>
+                                <field name="helpdesk_support_id"/>
+                            </group>
+                            <group>
+                                <field name="department_id"/>
+                                <field name="job_position_id"/>
+                                <field name="currency_id"/>
+                                <field name="request_date"/>
+                                <field name="confirm_date"/>
+                                <field name="approved_date"/>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Travel Request Info" name="travel_request_info">
+                                <group>
+                                    <group>
+                                        <field name="from_location_id"/>
+                                        <field name="req_departure_date"/>
+                                        <field name="req_mode_of_travel_days"/>
+                                        <field name="travel_days"/>
+                                        <field name="contact_number"/>
+                                        <field name="email"/>
+                                    </group>
+                                    <group>
+                                        <field name="to_location_id"/>
+                                        <field name="req_return_date"/>
+                                        <field name="travel_purpose"/>
+                                        <field name="project_id"/>
+                                        <field name="analytic_account_id"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Other Info" name="other_info">
+                                <group>
+                                    <group>
+                                        <field name="available_departure_date"/>
+                                        <field name="departure_mode_of_travel"/>
+                                        <field name="visa_agent"/>
+                                        <field name="bank_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="available_return_date"/>
+                                        <field name="return_mode_of_travel"/>
+                                        <field name="ticket_booking_agent"/>
+                                        <field name="cheque_number"/>
+                                    </group>
+                                </group>
+                            </page>
+
+<!--                            <page string="Expense Lines" name="expense_lines">-->
+<!--                                <group>-->
+<!--                                    <field name="travel_request_id"/>-->
+<!--                                    <field name="expense"/>-->
+<!--                                    <field name="description"/>-->
+<!--                                    <field name="unit_price"/>-->
+<!--                                    <field name="quantity"/>-->
+<!--                                    <field name="uom_id"/>-->
+<!--                                    <field name="currency_id"/>-->
+<!--                                    <field name="subtotal"/>-->
+<!--                                    <field name="total"/>-->
+<!--                                </group>-->
+<!--                            </page>-->
+
+                            <page string="Advance Payment Req." name="advance_payment_req">
+                                <field name="expense_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="expense_id"/>
+                                        <field name="description"/>
+                                        <field name="unit_price"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id"/>
+                                        <field name="currency_id"/>
+                                        <field name="subtotal"/>
+                                        <field name="total"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_travel_request_tree" model="ir.ui.view">
+            <field name="name">employee.travel.request.tree</field>
+            <field name="model">employee.travel.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="helpdesk_ticket_id"/>
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="manager_id"/>
+                    <field name="project_id"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_travel_request" model="ir.actions.act_window">
+            <field name="name">Employee Travel Requests</field>
+            <field name="res_model">employee.travel.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        <record id="action_travel_request" model="ir.actions.act_window">-->
+<!--            <field name="name">Employee Travel Requests</field>-->
+<!--            <field name="res_model">employee.travel.request</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="view_id" ref="view_travel_request_tree"/>-->
+<!--            <field name="help" type="html">-->
+<!--                <p class="oe_view_nocontent_create">-->
+<!--                    Click to create a new Equipment Request.-->
+<!--                </p>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="axis_helpdesk_ticket_help_tree" model="ir.ui.view">
+            <field name="name">axis.helpdesk.ticket.help.tree</field>
+            <field name="model">axis.helpdesk.ticket.help</field>
+            <field name="arch" type="xml">
+                <tree string="Helpdesk Ticket helps">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="axis_helpdesk_ticket_help_form" model="ir.ui.view">
+            <field name="name">axis.helpdesk.ticket.help.form</field>
+            <field name="model">axis.helpdesk.ticket.help</field>
+            <field name="arch" type="xml">
+                <form string="Helpdesk Ticket helps">
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" />
+                        <widget
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+                        <field name="active" invisible="1" />
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" required="1" />
+                            </h1>
+                        </div>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="axis_helpdesk_ticket_help_search" model="ir.ui.view">
+            <field name="name">axis.helpdesk.ticket.help.search</field>
+            <field name="model">axis.helpdesk.ticket.help</field>
+            <field name="arch" type="xml">
+                <search string="Helpdesk Ticket help Search">
+                    <filter
+                        string="Archived"
+                        name="inactive"
+                        domain="[('active','=',False)]"
+                    />
+                    <separator />
+                    <field name="name" filter_domain="[('name', 'ilike', self)]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="axis_helpdesk_ticket_help_action" model="ir.actions.act_window">
+            <field name="name">Ticket helps</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">axis.helpdesk.ticket.help</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="axis_helpdesk_ticket_help_menu" name="Ticket helps" parent="helpdesk_ticket_configuration" action="axis_helpdesk_ticket_help_action" sequence="46"/>
+
+    </data>
+</odoo>

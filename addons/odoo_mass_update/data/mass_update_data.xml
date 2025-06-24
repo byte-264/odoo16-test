@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="data_mass_update_record" model="mass.update.config">
+            <field name="name">Data Mass Update</field>
+        </record>
+    </data>
+</odoo>

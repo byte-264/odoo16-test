@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mass_update_config_user,mass_update_config_user,odoo_mass_update.model_mass_update_config,base.group_user,1,1,1,0
+access_mass_update_config_line_user,mass_update_config_line_user,odoo_mass_update.model_mass_update_config_line,base.group_user,1,1,1,0
+access_mass_update_history_user,mass_update_history_user,odoo_mass_update.model_mass_update_history,base.group_user,1,1,1,0
+
+access_mass_update_wiz_user,mass_update_wiz_user,odoo_mass_update.model_mass_update_wiz,base.group_user,1,1,1,0
+access_mass_update_line_wiz_user,mass_update_line_wiz_user,odoo_mass_update.model_mass_update_line_wiz,base.group_user,1,1,1,0

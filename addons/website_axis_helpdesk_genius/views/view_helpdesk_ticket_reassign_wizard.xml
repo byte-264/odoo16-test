@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="axis_helpdesk_ticket_reassign_wizard_form" model="ir.ui.view">
+            <field name="name">axis.helpdesk.ticket.reassign.wizard.form</field>
+            <field name="model">reassign.ticket.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Reassign Ticket">
+                    <group>
+                        <group>
+                            <field name="reassign_to"/>
+                        </group>
+                        <group>
+                            <field name="reassign_team_id" attrs="{'invisible': [('reassign_to', '!=', 'team')]}"/>
+                            <field name="reassign_user_id" attrs="{'invisible': [('reassign_to', '!=', 'user')]}"/>
+                        </group>
+                    </group>
+                    <field name="reason_details" attrs="{'invisible': [('reassign_to', '=', False)]}" placeholder='Please Add The Reason For Reassigning The Ticket'/>
+                    <footer>
+                        <button name="action_reassign" string="Reassign" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

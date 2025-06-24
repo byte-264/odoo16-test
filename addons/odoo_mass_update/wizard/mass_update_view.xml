@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="form_mass_update_wiz" model="ir.ui.view">
+        <field name="name">mass.update.form</field>
+        <field name="model">mass.update.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Mass Update">
+                <group>
+                    <group>
+                        <field name="res_model_id" readonly="1" widget="selection"/>
+                    </group>
+                </group>
+                <group string="Add items and it's values to update on selected record(s)."/>
+                <field name="mass_update_line_ids" context="{'default_model_id': res_model_id}">
+                    <tree>
+                        <field name="model_id" invisible="1"/>
+                        <field name="field_id"/>
+                        <field name="field_ttype" invisible="1"/>
+                    </tree>
+                    <form string="Update Multiple Records at one click">
+                        <group>
+                            <group>
+                                <field name="model_id" invisible="1"/>
+                                <field name="field_id"/>
+                                <field name="field_ttype" invisible="1"/>
+                            </group>
+                            <group/>
+                            <group>
+                                <field name="field_char" attrs="{'invisible': [('field_ttype', '!=', 'char')]}" string="Value"/>
+                                <field name="field_date"  attrs="{'invisible': [('field_ttype', '!=', 'date')]}" string="Value"/>
+                                <field name="field_datetime"  attrs="{'invisible': [('field_ttype', '!=', 'datetime')]}" string="Value"/>
+                                <field name="field_float"  attrs="{'invisible': [('field_ttype', '!=', 'float')]}" string="Value"/>
+                                <field name="field_integer"  attrs="{'invisible': [('field_ttype', '!=', 'integer')]}" string="Value"/>
+                                <field name="field_binary" attrs="{'invisible': [('field_ttype', '!=', 'binary')]}" string="Value"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="field_text" attrs="{'invisible': [('field_ttype', '!=', 'text')]}" string="Value"/>
+                            <field name="field_html" attrs="{'invisible': [('field_ttype', '!=', 'html')]}" string="Value"/>
+                        </group>
+                    </form>
+                </field>
+                <footer>
+                    <button string="Update" name="action_mass_update_record" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

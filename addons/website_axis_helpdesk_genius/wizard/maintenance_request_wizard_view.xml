@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_create_maintenance_request_wizard_form" model="ir.ui.view">
+            <field name="name">maintenance.request.wizard.form</field>
+            <field name="model">maintenance.request.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="user_id" required="1"/>
+                            <field name="maintenance_team_id" required="1"/>
+                        </group>
+                        <group>
+                            <field name="employee_id" required="1"/>
+                            <field name="equipment_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Create" type="object" name="create_maintenance_request" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

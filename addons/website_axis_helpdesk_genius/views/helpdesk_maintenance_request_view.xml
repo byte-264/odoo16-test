@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="maintenance_request_view_form_inherit_hr" model="ir.ui.view">
+            <field name="name">maintenance.request.view.form.inherit.custom</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='request_date']" position="after">
+                    <field name="helpdesk_ticket_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

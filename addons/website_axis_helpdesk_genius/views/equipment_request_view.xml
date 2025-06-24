@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_equipment_request_list" model="ir.ui.view">
+            <field name="name">equipment.request.list</field>
+            <field name="model">equipment.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ticket_id"/>
+                    <field name="created_by"/>
+                    <field name="company_id"/>
+                    <field name="created_on"/>
+                    <field name="analytic_account_id"/>
+                    <field name="department_id"/>
+                    <field name="helpdesk_team_id"/>
+                    <field name="project_id"/>
+                    <!-- Add other fields to display in the list view -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_equipment_request_form" model="ir.ui.view">
+            <field name="name">equipment.request.form</field>
+            <field name="model">equipment.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Confirm" type="object" name="action_confirm" states="draft"/>
+                        <button string="Receive Equipment" type="object" name="action_receive_equipment" states="confirmed"/>
+                        <button string="Return Equipment" type="object" name="action_return_equipment" states="equipment_received"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,equipment_received,equipment_returned"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="ticket_id"/>
+                                <field name="created_by"/>
+                                <field name="analytic_account_id"/>
+                                <field name="project_id"/>
+                            </group>
+                            <group>
+                                <field name="created_on"/>
+                                <field name="company_id"/>
+                                <field name="department_id"/>
+                                <field name="helpdesk_team_id"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Equipment Lines">
+                                <field name="equipment_request_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="equipment_id"/>
+                                        <field name="product_id"/>
+                                        <field name="description"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                        <separator string="Request Reason"/>
+                        <field name="request_reason" nolabel="1" placeholder="Please Provide Reason For The Request."/>
+                        <separator string="Internal Note"/>
+                        <field name="internal_note" nolabel="1" placeholder="Provide Internal Notes If Any."/>
+                        </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_equipment_request" model="ir.actions.act_window">
+            <field name="name">Equipment Requests</field>
+            <field name="res_model">equipment.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_equipment_request_list"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Equipment Request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="axis_helpdesk_equipment_menu" name="Asset Equipments" parent="main_menu_helpdesk_ticket"
+                  sequence="12"/>
+
+        <menuitem id="helpdesk_ticket_menu_all" name="Equipment Requests" action="action_equipment_request"
+                  sequence="20" parent="axis_helpdesk_equipment_menu"/>
+        <menuitem id="menu_equipment_form" name="Equipments" parent="axis_helpdesk_equipment_menu" action="maintenance.hr_equipment_action" sequence="30"/>
+
+
+    </data>
+</odoo>

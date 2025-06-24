@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mass_update_history_tree_view" model="ir.ui.view">
+            <field name="name">Mass Update History List</field>
+            <field name="model">mass.update.history</field>
+            <field name="arch" type="xml">
+                <tree string="Mass Update History List" create="false" delete="false">
+                    <field name="model_id"/>
+                    <field name="updated_on"/>
+                    <field name="updated_by"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_mass_update_history" model="ir.actions.act_window">
+            <field name="name">Mass Update History</field>
+            <field name="res_model">mass.update.history</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_mass_update_history" name="History" action="action_mass_update_history" parent="odoo_mass_update.menu_mass_update"/>
+    </data>
+</odoo>

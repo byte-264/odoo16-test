@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de lista -->
+        <record id="view_primero_tree" model="ir.ui.view">
+            <field name="name">primero.tree</field>
+            <field name="model">mi.modelo.primero</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de formulario -->
+        <record id="view_primero_form" model="ir.ui.view">
+            <field name="name">primero.form</field>
+            <field name="model">mi.modelo.primero</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="descripcion"/>
+                            <field name="date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción de ventana -->
+        <record id="action_primero" model="ir.actions.act_window">
+            <field name="name">Primero</field>
+            <field name="res_model">mi.modelo.primero</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menú -->
+        <menuitem id="menu_primero_root" name="Primer Módulo"/>
+        <menuitem id="menu_primero" name="Primero" parent="menu_primero_root" action="action_primero"/>
+    </data>
+</odoo>
