@@ -9,7 +9,7 @@ class HrDepartment(models.Model):
     recursive_child_ids = fields.Many2many('hr.department', 'parent_id', 'child_id', compute='_compute_recursive_child_ids',
                                            compute_sudo=True, string='Recursive Child Departments',
                                            help="Direct and Indirect Child Departments", recursive=True)
-    name = fields.Char(translate=True)
+    # name = fields.Char(translate=True)  # Comentado para evitar conflicto con campo existente
 
     def name_get(self):
         result = []
