@@ -1,1 +1,0 @@
-When creating tickets in the portal, you can select the priority of the ticket.
