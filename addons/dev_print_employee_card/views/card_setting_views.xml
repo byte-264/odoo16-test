@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+		<record id="view_card_setting_form" model="ir.ui.view">
+			<field name="name">view.card.setting.form</field>
+			<field name="model">card.setting</field>
+			<field name="arch" type="xml">
+				<form string="Employee Card Format">
+					<sheet>
+					    <label string="Name" for="name" class="oe_edit"/>
+						<h1><field name="name"/></h1>
+						
+						<group>
+							<group>
+								<field name="back_image"/>
+							</group>
+							<group>
+							    <field name="page_type" widget="radio"/>
+							    <field name="card_width"/>
+							    <field name="card_height"/>
+							</group>
+						</group>
+						
+						<group string="Print Company Logo">
+						    <group>
+						        <field name='is_company_logo' />
+						        <field name="logo_width" attrs="{'required':[('is_company_logo','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name='logo_m_top' attrs="{'required':[('is_company_logo','=',True)]}"/>
+								<field name='logo_m_left' attrs="{'required':[('is_company_logo','=',True)]}"/>
+						    </group>
+						</group>
+						
+						
+						<group string="Print Employee Image">
+						    <group>
+						        <field name='is_emp_image' />
+						        <field name="image_round" attrs="{'required':[('is_emp_image','=',True)]}"/>
+						        <field name="emp_img_width" attrs="{'required':[('is_emp_image','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name='emp_img_m_top' attrs="{'required':[('is_emp_image','=',True)]}"/>
+								<field name='emp_img_m_left' attrs="{'required':[('is_emp_image','=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string="Print Employee Name">
+						    <group>
+						        <field name='is_employee' />
+						        <field name="is_emp_name_center"/>
+						        <field name="emp_bold"/>
+						        <field name="emp_color"/>
+						        <field name="emp_font_size" attrs="{'required':[('is_employee','=',True)]}"/>
+						        <field name='emp_m_top' attrs="{'required':[('is_employee','=',True)]}"/>
+								<field name='emp_m_left' attrs="{'required':['&amp;',('is_employee','=',True),('is_emp_name_center','!=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name='is_name_label'/>
+						        <field name="is_label_emp_name_center"/>
+						        <field name='name_label' attrs="{'required':[('is_name_label','=',True)]}"/>
+						        <field name='name_lab_bold' attrs="{'required':[('is_name_label','=',True)]}"/>
+						        <field name='name_lab_color' attrs="{'required':[('is_name_label','=',True)]}"/>
+						        <field name='name_lab_font_size' attrs="{'required':[('is_name_label','=',True)]}"/>
+						        <field name='name_lab_m_top' attrs="{'required':[('is_name_label','=',True)]}"/>
+						        <field name='name_lab_m_left' attrs="{'required':['&amp;',('is_name_label','=',True),('is_label_emp_name_center','!=',True)]}"/>
+						        
+						    </group>
+						</group>
+						
+						
+						<group string="Print Employee Job Position">
+						    <group>
+						        <field name='is_jobposition' />
+						        <field name="is_job_name_center"/>
+						        <field name="job_bold"/>
+						        <field name="job_color"/>
+						        <field name="job_font_size" attrs="{'required':[('is_jobposition','=',True)]}"/>
+						        <field name='job_m_top' attrs="{'required':[('is_jobposition','=',True)]}"/>
+								<field name='job_m_left' attrs="{'required':['&amp;',('is_jobposition','=',True),('is_job_name_center','!=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name='is_job_label'/>
+						        <field name="is_label_emp_job_center"/>
+						        <field name='job_label' attrs="{'required':[('is_job_label','=',True)]}"/>
+						        <field name='job_lab_bold' attrs="{'required':[('is_job_label','=',True)]}"/>
+						        <field name='job_lab_color' attrs="{'required':[('is_job_label','=',True)]}"/>
+						        <field name='job_lab_font_size' attrs="{'required':[('is_job_label','=',True)]}"/>
+						        <field name='job_lab_m_top' attrs="{'required':[('is_job_label','=',True)]}"/>
+						        <field name='job_lab_m_left' attrs="{'required':['&amp;',('is_job_label','=',True),('is_label_emp_job_center','!=',True)]}"/>
+						        
+						    </group>
+						</group>
+						
+						<group string="Print Employee Number">
+							<group>
+							    <field name='is_number' />
+							    <field name="is_number_center" />
+							    <field name="num_bold"/>
+							    <field name="num_color" attrs="{'required':[('is_number','=',True)]}"/>
+							    <field name="num_font_size" attrs="{'required':[('is_number','=',True)]}"/>
+							    <field name='num_m_top' attrs="{'required':[('is_number','=',True)]}"/>
+								<field name='num_m_left' attrs="{'required':['&amp;',('is_number','=',True),('is_number_center','!=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_number_label"/>
+							    <field name="is_num_lab_center"/>
+							    <field name="number_label" attrs="{'required':[('is_number_label','=',True)]}"/>
+							    <field name="num_lab_bold" attrs="{'required':[('is_number_label','=',True)]}"/>
+							    <field name="num_lab_color" attrs="{'required':[('is_number_label','=',True)]}"/>
+							    <field name="num_lab_font_size" attrs="{'required':[('is_number_label','=',True)]}"/>
+							    <field name="num_lab_m_top" attrs="{'required':[('is_number_label','=',True)]}"/>
+							    <field name="num_lab_m_left" attrs="{'required':['&amp;',('is_number_label','=',True),('is_num_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+						<group string="Print Employee Birthday">
+							<group>
+							    <field name='is_birthday' />
+							    <field name="is_birthday_center"/>
+							    <field name="birthday_bold"/>
+							    <field name="birthday_color" attrs="{'required':[('is_birthday','=',True)]}"/>
+							    <field name="birthday_font_size" attrs="{'required':[('is_birthday','=',True)]}"/>
+							    <field name='birthday_m_top' attrs="{'required':[('is_birthday','=',True)]}"/>
+								<field name='birthday_m_left' attrs="{'required':['&amp;',('is_birthday','=',True),('is_birthday_center','!=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_birthday_label"/>
+							    <field name="is_birthday_lab_center"/>
+							    <field name="birthday_label" attrs="{'required':[('is_birthday_label','=',True)]}"/>
+							    <field name="birthday_lab_bold" attrs="{'required':[('is_birthday_label','=',True)]}"/>
+							    <field name="birthday_lab_color" attrs="{'required':[('is_birthday_label','=',True)]}"/>
+							    <field name="birthday_lab_font_size" attrs="{'required':[('is_birthday_label','=',True)]}"/>
+							    <field name="birthday_lab_m_top" attrs="{'required':[('is_birthday_label','=',True)]}"/>
+							    <field name="birthday_lab_m_left" attrs="{'required':['&amp;',('is_birthday_label','=',True),('is_birthday_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+						
+						<group string="Print Employee Phone">
+							<group>
+							    <field name='is_phone' />
+							    <field name="is_phone_center"/>
+							    <field name="phone_bold"/>
+							    <field name="phone_color" attrs="{'required':[('is_phone','=',True)]}"/>
+							    <field name="phone_font_size" attrs="{'required':[('is_phone','=',True)]}"/>
+							    <field name='phone_m_top' attrs="{'required':[('is_phone','=',True)]}"/>
+								<field name='phone_m_left' attrs="{'required':['&amp;',('is_phone','=',True),('is_phone_center','!=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_phone_label"/>
+							    <field name="is_phone_lab_center"/>
+							    <field name="phone_label" attrs="{'required':[('is_phone_label','=',True)]}"/>
+							    <field name="phone_lab_bold" attrs="{'required':[('is_phone_label','=',True)]}"/>
+							    <field name="phone_lab_color" attrs="{'required':[('is_phone_label','=',True)]}"/>
+							    <field name="phone_lab_font_size" attrs="{'required':[('is_phone_label','=',True)]}"/>
+							    <field name="phone_lab_m_top" attrs="{'required':[('is_phone_label','=',True)]}"/>
+							    <field name="phone_lab_m_left" attrs="{'required':['&amp;',('is_phone_label','=',True),('is_phone_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+						<group string="Print Employee Blood Group">
+							<group>
+							    <field name='is_b_group' />
+							    <field name="is_b_group_center"/>
+							    <field name="b_group_bold"/>
+							    <field name="b_group_color" attrs="{'required':[('is_b_group','=',True)]}"/>
+							    <field name="b_group_font_size" attrs="{'required':[('is_b_group','=',True)]}"/>
+							    <field name='b_group_m_top' attrs="{'required':[('is_b_group','=',True)]}"/>
+								<field name='b_group_m_left' attrs="{'required':['&amp;',('is_b_group','=',True),('is_b_group_center','!=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_b_group_label"/>
+							    <field name="is_b_group_lab_center"/>
+							    <field name="b_group_label" attrs="{'required':[('is_b_group_label','=',True)]}"/>
+							    <field name="b_group_lab_bold" attrs="{'required':[('is_b_group_label','=',True)]}"/>
+							    <field name="b_group_lab_color" attrs="{'required':[('is_b_group_label','=',True)]}"/>
+							    <field name="b_group_lab_font_size" attrs="{'required':[('is_b_group_label','=',True)]}"/>
+							    <field name="b_group_lab_m_top" attrs="{'required':[('is_b_group_label','=',True)]}"/>
+							    <field name="b_group_lab_m_left" attrs="{'required':['&amp;',('is_b_group_label','=',True),('is_b_group_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+						<group string="Print Employee Email">
+							<group>
+							    <field name='is_email' />
+							    <field name="is_email_center"/>
+							    <field name="email_bold"/>
+							    <field name="email_color" attrs="{'required':[('is_email','=',True)]}"/>
+							    <field name="email_font_size" attrs="{'required':[('is_email','=',True)]}"/>
+							    <field name='email_m_top' attrs="{'required':[('is_email','=',True)]}"/>
+								<field name='email_m_left' attrs="{'required':['&amp;',('is_email','=',True),('is_email_center','!=',True)]}"/>
+								
+							</group>
+							<group>
+							    <field name="is_email_label"/>
+							    <field name="is_email_lab_center"/>
+							    <field name="email_label" attrs="{'required':[('is_email_label','=',True)]}"/>
+							    <field name="email_lab_bold" attrs="{'required':[('is_email_label','=',True)]}"/>
+							    <field name="email_lab_color" attrs="{'required':[('is_email_label','=',True)]}"/>
+							    <field name="email_lab_font_size" attrs="{'required':[('is_email_label','=',True)]}"/>
+							    <field name="email_lab_m_top" attrs="{'required':[('is_email_label','=',True)]}"/>
+							    <field name="email_lab_m_left" attrs="{'required':['&amp;',('is_email_label','=',True),('is_email_lab_center','!=',True)]}"/>
+							</group>
+						</group>												
+						
+						<group string="Print Barcode">
+						    <group>
+						        <field name='is_barcode' />
+						        <field name="is_barcode_center"/>
+						        <field name="barcode_type" attrs="{'required':[('is_barcode','=',True)]}"/>
+						        <field name="barcode_width" attrs="{'required':[('is_barcode','=',True)]}"/>
+						        <field name="barcode_height" attrs="{'required':[('is_barcode','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name='barcode_m_top' attrs="{'required':[('is_barcode','=',True)]}"/>
+								<field name='barcode_m_left' attrs="{'required':['&amp;',('is_barcode','=',True),('is_barcode_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						
+						<group string='Company Name'>
+						    <group>
+						        <field name="is_company_name"/>
+						        <field name="company_name_bold" attrs="{'required':[('is_company_name','=',True)]}"/>
+						        <field name="company_name_color" attrs="{'required':[('is_company_name','=',True)]}"/>
+						        <field name="company_name_font_size" attrs="{'required':[('is_company_name','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_company_name_center"/>
+						        <field name="company_name_m_top" attrs="{'required':[('is_company_name','=',True)]}"/>
+						        <field name="company_name_m_left" attrs="{'required':['&amp;',('is_company_name','=',True),('is_company_name_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						
+						<group string="Company Website">
+						    <group>
+							    <field name='is_c_website' />
+							    <field name="is_c_website_center"/>
+							    <field name="c_website_bold"/>
+							    <field name="c_website_color" attrs="{'required':[('is_c_website','=',True)]}"/>
+							    <field name="c_website_font_size" attrs="{'required':[('is_c_website','=',True)]}"/>
+							    <field name='c_website_m_top' attrs="{'required':[('is_c_website','=',True)]}"/>
+								<field name='c_website_m_left' attrs="{'required':['&amp;',('is_c_website','=',True),('is_c_website_center','!=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_c_website_label"/>
+							    <field name="is_c_website_lab_center"/>
+							    <field name="c_website_label" attrs="{'required':[('is_c_website_label','=',True)]}"/>
+							    <field name="c_website_lab_bold" attrs="{'required':[('is_c_website_label','=',True)]}"/>
+							    <field name="c_website_lab_color" attrs="{'required':[('is_c_website_label','=',True)]}"/>
+							    <field name="c_website_lab_font_size" attrs="{'required':[('is_c_website_label','=',True)]}"/>
+							    <field name="c_website_lab_m_top" attrs="{'required':[('is_c_website_label','=',True)]}"/>
+							    <field name="c_website_lab_m_left" attrs="{'required':['&amp;',('is_c_website_label','=',True),('is_c_website_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+						
+						<group string="Private Address Label">
+						    <group>
+						        <field name="is_home_address"/>
+							    <field name='is_home_address_label' />
+							    <field name="home_address_label" attrs="{'required':[('is_home_address_label','=',True)]}"/>
+							    <field name="home_address_lab_bold" attrs="{'required':[('is_home_address_label','=',True)]}"/>
+							    <field name="home_address_lab_color" attrs="{'required':[('is_home_address_label','=',True)]}"/>
+							    <field name="home_address_lab_font_size" attrs="{'required':[('is_home_address_label','=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_home_address_lab_center"/>
+							    <field name="home_address_lab_m_top" attrs="{'required':[('is_home_address_label','=',True)]}"/>
+							    <field name="home_address_lab_m_left" attrs="{'required':['&amp;',('is_home_address_label','=',True),('is_home_address_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+    
+						<group string='Private Address Street'>
+						    <group>
+						        <field name="is_h_street"/>
+						        <field name="h_street_bold" attrs="{'required':[('is_h_street','=',True)]}"/>
+						        <field name="h_street_color" attrs="{'required':[('is_h_street','=',True)]}"/>
+						        <field name="h_street_font_size" attrs="{'required':[('is_h_street','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_h_street_center"/>
+						        <field name="h_street_m_top" attrs="{'required':[('is_h_street','=',True)]}"/>
+						        <field name="h_street_m_left" attrs="{'required':['&amp;',('is_h_street','=',True),('is_h_street_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Private Address Street2'>
+						    <group>
+						        <field name="is_h_street2"/>
+						        <field name="h_street2_bold" attrs="{'required':[('is_h_street2','=',True)]}"/>
+						        <field name="h_street2_color" attrs="{'required':[('is_h_street2','=',True)]}"/>
+						        <field name="h_street2_font_size" attrs="{'required':[('is_h_street2','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_h_street2_center"/>
+						        <field name="h_street2_m_top" attrs="{'required':[('is_h_street2','=',True)]}"/>
+						        <field name="h_street2_m_left" attrs="{'required':['&amp;',('is_h_street2','=',True),('is_h_street2_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Private Address City'>
+						    <group>
+						        <field name="is_h_city"/>
+						        <field name="h_city_bold" attrs="{'required':[('is_h_city','=',True)]}"/>
+						        <field name="h_city_color" attrs="{'required':[('is_h_city','=',True)]}"/>
+						        <field name="h_city_font_size" attrs="{'required':[('is_h_city','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_h_city_center"/>
+						        <field name="h_city_m_top" attrs="{'required':[('is_h_city','=',True)]}"/>
+						        <field name="h_city_m_left" attrs="{'required':['&amp;',('is_h_city','=',True),('is_h_city_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Private Address State'>
+						    <group>
+						        <field name="is_h_state"/>
+						        <field name="h_state_bold" attrs="{'required':[('is_h_state','=',True)]}"/>
+						        <field name="h_state_color" attrs="{'required':[('is_h_state','=',True)]}"/>
+						        <field name="h_state_font_size" attrs="{'required':[('is_h_state','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_h_state_center"/>
+						        <field name="h_state_m_top" attrs="{'required':[('is_h_state','=',True)]}"/>
+						        <field name="h_state_m_left" attrs="{'required':['&amp;',('is_h_state','=',True),('is_h_state_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Private Address Country'>
+						    <group>
+						        <field name="is_h_country"/>
+						        <field name="h_country_bold" attrs="{'required':[('is_h_country','=',True)]}"/>
+						        <field name="h_country_color" attrs="{'required':[('is_h_country','=',True)]}"/>
+						        <field name="h_country_font_size" attrs="{'required':[('is_h_country','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_h_country_center"/>
+						        <field name="h_country_m_top" attrs="{'required':[('is_h_country','=',True)]}"/>
+						        <field name="h_country_m_left" attrs="{'required':['&amp;',('is_h_country','=',True),('is_h_country_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						
+						
+						
+						<group string="Work Address Label">
+						    <group>
+						        <field name="is_work_address"/>
+							    <field name='is_work_address_label' />
+							    <field name="work_address_label" attrs="{'required':[('is_work_address_label','=',True)]}"/>
+							    <field name="work_address_lab_bold" attrs="{'required':[('is_work_address_label','=',True)]}"/>
+							    <field name="work_address_lab_color" attrs="{'required':[('is_work_address_label','=',True)]}"/>
+							    <field name="work_address_lab_font_size" attrs="{'required':[('is_work_address_label','=',True)]}"/>
+							</group>
+							<group>
+							    <field name="is_work_address_lab_center"/>
+							    <field name="work_address_lab_m_top" attrs="{'required':[('is_work_address_label','=',True)]}"/>
+							    <field name="work_address_lab_m_left" attrs="{'required':['&amp;',('is_work_address_label','=',True),('is_work_address_lab_center','!=',True)]}"/>
+							</group>
+						</group>
+						
+						<group string='Work Address Street'>
+						    <group>
+						        <field name="is_w_street"/>
+						        <field name="w_street_bold" attrs="{'required':[('is_w_street','=',True)]}"/>
+						        <field name="w_street_color" attrs="{'required':[('is_w_street','=',True)]}"/>
+						        <field name="w_street_font_size" attrs="{'required':[('is_w_street','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_w_street_center"/>
+						        <field name="w_street_m_top" attrs="{'required':[('is_w_street','=',True)]}"/>
+						        <field name="w_street_m_left" attrs="{'required':['&amp;',('is_w_street','=',True),('is_w_street_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Work Address Street2'>
+						    <group>
+						        <field name="is_w_street2"/>
+						        <field name="w_street2_bold" attrs="{'required':[('is_w_street2','=',True)]}"/>
+						        <field name="w_street2_color" attrs="{'required':[('is_w_street2','=',True)]}"/>
+						        <field name="w_street2_font_size" attrs="{'required':[('is_w_street2','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_w_street2_center"/>
+						        <field name="w_street2_m_top" attrs="{'required':[('is_w_street2','=',True)]}"/>
+						        <field name="w_street2_m_left" attrs="{'required':['&amp;',('is_w_street2','=',True),('is_w_street2_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Work Address City'>
+						    <group>
+						        <field name="is_w_city"/>
+						        <field name="w_city_bold" attrs="{'required':[('is_w_city','=',True)]}"/>
+						        <field name="w_city_color" attrs="{'required':[('is_w_city','=',True)]}"/>
+						        <field name="w_city_font_size" attrs="{'required':[('is_w_city','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_w_city_center"/>
+						        <field name="w_city_m_top" attrs="{'required':[('is_w_city','=',True)]}"/>
+						        <field name="w_city_m_left" attrs="{'required':['&amp;',('is_w_city','=',True),('is_w_city_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Work Address State'>
+						    <group>
+						        <field name="is_w_state"/>
+						        <field name="w_state_bold" attrs="{'required':[('is_w_state','=',True)]}"/>
+						        <field name="w_state_color" attrs="{'required':[('is_w_state','=',True)]}"/>
+						        <field name="w_state_font_size" attrs="{'required':[('is_w_state','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_w_state_center"/>
+						        <field name="w_state_m_top" attrs="{'required':[('is_w_state','=',True)]}"/>
+						        <field name="w_state_m_left" attrs="{'required':['&amp;',('is_w_state','=',True),('is_w_state_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						<group string='Work Address Country'>
+						    <group>
+						        <field name="is_w_country"/>
+						        <field name="w_country_bold" attrs="{'required':[('is_w_country','=',True)]}"/>
+						        <field name="w_country_color" attrs="{'required':[('is_w_country','=',True)]}"/>
+						        <field name="w_country_font_size" attrs="{'required':[('is_w_country','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_w_country_center"/>
+						        <field name="w_country_m_top" attrs="{'required':[('is_w_country','=',True)]}"/>
+						        <field name="w_country_m_left" attrs="{'required':['&amp;',('is_w_country','=',True),('is_w_country_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						
+						<group string='Print Notes'>
+						    <group>
+						        <field name="is_notes"/>
+						        <field name="note" attrs="{'required':[('is_notes','=',True)]}" />
+						        <field name="notes_bold" attrs="{'required':[('is_notes','=',True)]}"/>
+						        <field name="notes_color" attrs="{'required':[('is_notes','=',True)]}"/>
+						        <field name="notes_font_size" attrs="{'required':[('is_notes','=',True)]}"/>
+						    </group>
+						    <group>
+						        <field name="is_notes_center"/>
+						        <field name="notes_m_top" attrs="{'required':[('is_notes','=',True)]}"/>
+						        <field name="notes_m_left" attrs="{'required':['&amp;',('is_notes','=',True),('is_notes_center','!=',True)]}"/>
+						    </group>
+						</group>
+						
+						
+						
+						
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_card_setting_tree" model="ir.ui.view">
+			<field name="name">view.card.setting.tree</field>
+			<field name="model">card.setting</field>
+			<field name="arch" type="xml">
+				<tree string="Employee Card Format">
+				    <field name="name"/>
+				    <field name="is_company_logo"/>
+				    <field name="is_emp_image"/>
+				    <field name="is_employee"/>
+				</tree>
+			</field>
+		</record>
+		
+		
+        <record id="action_card_setting" model="ir.actions.act_window">
+            <field name="name">Employee Card Format</field>
+            <field name="res_model">card.setting</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+		<menuitem name="Employee Card" id="emp_card_main" parent="hr.menu_hr_root" sequence="100" groups="hr.group_hr_manager"/>
+	<!--  Menu Items-->
+		<menuitem name="Card Format Setting" id="menu_card_setting" parent="emp_card_main" action="action_card_setting" sequence="1"/>
+</odoo>

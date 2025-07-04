@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+	<record id="view_hr_employee_barcode_form" model="ir.ui.view">
+		<field name="name">view.hr.employee.barcode.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+		     <xpath expr="//field[@name='name']" position="before">
+                <field name="emp_number"/><br/>
+		     </xpath>
+		     
+		     <xpath expr="//page[@name='personal_information']//field[@name='birthday']" position="after">
+                <field name="b_group"/>
+		     </xpath>
+		     
+		</field>
+	</record>
+	
+</odoo>
+        

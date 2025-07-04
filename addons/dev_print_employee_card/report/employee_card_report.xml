@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+    <template id="print_company_logo">
+        <!-- Company Logo -->
+	    <t t-if="o.formate_id.is_company_logo">
+            <div t-attf-style="opacity:1;position:absolute;margin-left:#{o.formate_id.logo_m_left}px;margin-top:#{o.formate_id.logo_m_top}px;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	            <img t-if="emp.company_id.logo" t-att-src="image_data_uri(emp.company_id.logo)" class="float-start" alt="Logo" t-attf-style="width:#{o.formate_id.logo_width}px;"/>
+	        </div>
+	    </t>
+    </template>
+    
+    <template id="print_employee_image">
+        <!-- Employee Image -->
+	    <t t-if="o.formate_id.is_emp_image">
+	            <div t-attf-style="opacity:1;position:absolute;margin-left:#{o.formate_id.emp_img_m_left}px;margin-top:#{o.formate_id.emp_img_m_top}px;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                <t t-if="not o.formate_id.image_round">
+		                <img t-if="emp.image_1920" t-att-src="image_data_uri(emp.image_1920)" class="float-start" alt="Logo" t-attf-style="width:#{o.formate_id.emp_img_width}px;"/>
+		            </t>
+		            <t t-if="o.formate_id.image_round">
+		                <img t-if="emp.image_1920" t-att-src="image_data_uri(emp.image_1920)" class="float-start" alt="Logo" t-attf-style="width:#{o.formate_id.emp_img_width}px;border-radius:75%"/>
+		            </t>
+		        </div>
+	    </t>
+    </template>
+    
+    
+    <template id="print_employee_name_label">
+        <t t-if="o.formate_id.is_employee">
+            <t t-if="o.formate_id.is_name_label">
+                <t t-if="not o.formate_id.is_label_emp_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.name_lab_font_size}px;margin-left:#{o.formate_id.name_lab_m_left}px;margin-top:#{o.formate_id.name_lab_m_top}px;color:#{o.formate_id.name_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.name_lab_bold">
+	                        <b><span t-esc="o.formate_id.name_label"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.name_lab_bold">
+	                        <span t-esc="o.formate_id.name_label"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_label_emp_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.name_lab_font_size}px;margin-top:#{o.formate_id.name_lab_m_top}px;color:#{o.formate_id.name_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.name_lab_bold">
+	                        <b><span t-esc="o.formate_id.name_label"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.name_lab_bold">
+	                        <span t-esc="o.formate_id.name_label"/>
+	                    </t>
+		            </div>
+                </t>
+                
+            </t>
+        </t>
+    </template>
+    
+    <template id="print_employee_name">
+        <t t-if="o.formate_id.is_employee">
+            <t t-if="emp.name">
+                <t t-if="not o.formate_id.is_emp_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.emp_font_size}px;margin-left:#{o.formate_id.emp_m_left}px;margin-top:#{o.formate_id.emp_m_top}px;color:#{o.formate_id.emp_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.emp_bold">
+	                        <b><span t-esc="emp.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.emp_bold">
+	                        <span t-esc="emp.name"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_emp_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.emp_font_size}px;margin-top:#{o.formate_id.emp_m_top}px;color:#{o.formate_id.emp_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.emp_bold">
+	                        <b><span t-esc="emp.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.emp_bold">
+	                        <span t-esc="emp.name"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_employee_job_position_label">
+        <t t-if="o.formate_id.is_jobposition">
+            <t t-if="o.formate_id.is_job_label">
+                <t t-if="not o.formate_id.is_label_emp_job_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.job_lab_font_size}px;margin-left:#{o.formate_id.job_lab_m_left}px;margin-top:#{o.formate_id.job_lab_m_top}px;color:#{o.formate_id.job_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.job_lab_bold">
+	                        <b><span t-esc="o.formate_id.job_label"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.job_lab_bold">
+	                        <span t-esc="o.formate_id.job_label"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_label_emp_job_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.job_lab_font_size}px;margin-top:#{o.formate_id.job_lab_m_top}px;color:#{o.formate_id.job_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.job_lab_bold">
+	                        <b><span t-esc="o.formate_id.job_label"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.job_lab_bold">
+	                        <span t-esc="o.formate_id.job_label"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_employee_job_position">
+        <t t-if="o.formate_id.is_jobposition">
+            <t t-if="emp.job_id">
+                <t t-if="not o.formate_id.is_job_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.job_font_size}px;margin-left:#{o.formate_id.job_m_left}px;margin-top:#{o.formate_id.job_m_top}px;color:#{o.formate_id.job_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.job_bold">
+	                        <b><span t-esc="emp.job_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.job_bold">
+	                        <span t-esc="emp.job_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_job_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.job_font_size}px;margin-top:#{o.formate_id.job_m_top}px;color:#{o.formate_id.job_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.job_bold">
+	                        <b><span t-esc="emp.job_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.job_bold">
+	                        <span t-esc="emp.job_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="print_employee_number_label">
+        <t t-if="o.formate_id.is_number_label and o.formate_id.is_number">
+            <t t-if="not o.formate_id.is_num_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.num_lab_font_size}px;margin-left:#{o.formate_id.num_lab_m_left}px;margin-top:#{o.formate_id.num_lab_m_top}px;color:#{o.formate_id.num_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.num_lab_bold">
+                        <b><span t-esc="o.formate_id.number_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.num_lab_bold">
+                        <span t-esc="o.formate_id.number_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_num_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.num_lab_font_size}px;margin-top:#{o.formate_id.num_lab_m_top}px;color:#{o.formate_id.num_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.num_lab_bold">
+                        <b><span t-esc="o.formate_id.number_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.num_lab_bold">
+                        <span t-esc="o.formate_id.number_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template>  
+    
+    
+    <template id="print_employee_number">
+        <t t-if="o.formate_id.is_number">
+            <t t-if="emp.emp_number">
+                <t t-if="not o.formate_id.is_number_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.num_font_size}px;margin-left:#{o.formate_id.num_m_left}px;margin-top:#{o.formate_id.num_m_top}px;color:#{o.formate_id.num_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.num_bold">
+	                        <b><span t-esc="emp.emp_number"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.num_bold">
+	                        <span t-esc="emp.emp_number"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_number_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.num_font_size}px;margin-top:#{o.formate_id.num_m_top}px;color:#{o.formate_id.num_color}px;display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.num_bold">
+	                        <b><span t-esc="emp.emp_number"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.num_bold">
+	                        <span t-esc="emp.emp_number"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>   
+    
+    
+    
+    <template id="print_employee_birthday_label">
+        <t t-if="o.formate_id.is_birthday_label and o.formate_id.is_birthday">
+            <t t-if="not o.formate_id.is_birthday_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.birthday_lab_font_size}px;margin-left:#{o.formate_id.birthday_lab_m_left}px;margin-top:#{o.formate_id.birthday_lab_m_top}px;color:#{o.formate_id.birthday_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.birthday_lab_bold">
+                        <b><span t-esc="o.formate_id.birthday_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.birthday_lab_bold">
+                        <span t-esc="o.formate_id.birthday_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_birthday_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.birthday_lab_font_size}px;margin-top:#{o.formate_id.birthday_lab_m_top}px;color:#{o.formate_id.birthday_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.birthday_lab_bold">
+                        <b><span t-esc="o.formate_id.birthday_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.birthday_lab_bold">
+                        <span t-esc="o.formate_id.birthday_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template> 
+    
+    <template id="print_employee_birthday">
+        <t t-if="o.formate_id.is_birthday">
+            <t t-if="emp.birthday">
+                <t t-if="not o.formate_id.is_birthday_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.birthday_font_size}px;margin-left:#{o.formate_id.birthday_m_left}px;margin-top:#{o.formate_id.birthday_m_top}px;color:#{o.formate_id.birthday_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.birthday_bold">
+	                        <b><span t-esc="emp.birthday"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.birthday_bold">
+	                        <span t-esc="emp.birthday"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_birthday_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.birthday_font_size}px;margin-top:#{o.formate_id.birthday_m_top}px;color:#{o.formate_id.birthday_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.birthday_bold">
+	                        <b><span t-esc="emp.birthday"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.birthday_bold">
+	                        <span t-esc="emp.birthday"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>  
+    
+    <template id="print_employee_phone_label">
+        <t t-if="o.formate_id.is_phone_label and o.formate_id.is_phone">
+            <t t-if="not o.formate_id.is_phone_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.phone_lab_font_size}px;margin-left:#{o.formate_id.phone_lab_m_left}px;margin-top:#{o.formate_id.phone_lab_m_top}px;color:#{o.formate_id.phone_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.phone_lab_bold">
+                        <b><span t-esc="o.formate_id.phone_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.phone_lab_bold">
+                        <span t-esc="o.formate_id.phone_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_phone_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.phone_lab_font_size}px;margin-top:#{o.formate_id.phone_lab_m_top}px;color:#{o.formate_id.phone_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.phone_lab_bold">
+                        <b><span t-esc="o.formate_id.phone_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.phone_lab_bold">
+                        <span t-esc="o.formate_id.phone_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template>  
+    
+    <template id="print_employee_phone">
+        <t t-if="o.formate_id.is_phone">
+            <t t-if="emp.mobile_phone">
+                <t t-if="not o.formate_id.is_phone_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.phone_font_size}px;margin-left:#{o.formate_id.phone_m_left}px;margin-top:#{o.formate_id.phone_m_top}px;color:#{o.formate_id.phone_color};;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.phone_bold">
+	                        <b><span t-esc="emp.mobile_phone"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.phone_bold">
+	                        <span t-esc="emp.mobile_phone"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_phone_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.phone_font_size}px;margin-top:#{o.formate_id.phone_m_top}px;color:#{o.formate_id.phone_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.phone_bold">
+	                        <b><span t-esc="emp.mobile_phone"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.phone_bold">
+	                        <span t-esc="emp.mobile_phone"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>  
+    
+    
+    <template id="print_employee_b_group_label">
+        <t t-if="o.formate_id.is_b_group_label and o.formate_id.is_b_group">
+            <t t-if="not o.formate_id.is_b_group_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.b_group_lab_font_size}px;margin-left:#{o.formate_id.b_group_lab_m_left}px;margin-top:#{o.formate_id.b_group_lab_m_top}px;color:#{o.formate_id.b_group_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.b_group_lab_bold">
+                        <b><span t-esc="o.formate_id.b_group_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.b_group_lab_bold">
+                        <span t-esc="o.formate_id.b_group_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_b_group_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.b_group_lab_font_size}px;margin-top:#{o.formate_id.b_group_lab_m_top}px;color:#{o.formate_id.b_group_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.b_group_lab_bold">
+                        <b><span t-esc="o.formate_id.b_group_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.b_group_lab_bold">
+                        <span t-esc="o.formate_id.b_group_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_employee_b_group">
+        <t t-if="o.formate_id.is_b_group">
+            <t t-if="emp.b_group">
+                <t t-if="not o.formate_id.is_b_group_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.b_group_font_size}px;margin-left:#{o.formate_id.b_group_m_left}px;margin-top:#{o.formate_id.b_group_m_top}px;color:#{o.formate_id.b_group_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.b_group_bold">
+	                        <b><span t-esc="emp.b_group"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.b_group_bold">
+	                        <span t-esc="emp.b_group"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_b_group_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.b_group_font_size}px;margin-top:#{o.formate_id.b_group_m_top}px;color:#{o.formate_id.b_group_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.b_group_bold">
+	                        <b><span t-esc="emp.b_group"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.b_group_bold">
+	                        <span t-esc="emp.b_group"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>    
+    
+    
+    <template id="print_employee_email_label">
+        <t t-if="o.formate_id.is_email_label and o.formate_id.is_email">
+            <t t-if="not o.formate_id.is_email_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.email_lab_font_size}px;margin-left:#{o.formate_id.email_lab_m_left}px;margin-top:#{o.formate_id.email_lab_m_top}px;color:#{o.formate_id.email_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.email_lab_bold">
+                        <b><span t-esc="o.formate_id.email_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.email_lab_bold">
+                        <span t-esc="o.formate_id.email_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_email_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.email_lab_font_size}px;margin-top:#{o.formate_id.email_lab_m_top}px;color:#{o.formate_id.email_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.email_lab_bold">
+                        <b><span t-esc="o.formate_id.email_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.email_lab_bold">
+                        <span t-esc="o.formate_id.email_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template>
+    
+    <template id="print_employee_email">
+        <t t-if="o.formate_id.is_email">
+            <t t-if="emp.work_email">
+                <t t-if="not o.formate_id.is_email_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.email_font_size}px;margin-left:#{o.formate_id.email_m_left}px;margin-top:#{o.formate_id.email_m_top}px;color:#{o.formate_id.email_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.email_bold">
+	                        <b><span t-esc="emp.work_email"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.email_bold">
+	                        <span t-esc="emp.work_email"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_email_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.email_font_size}px;margin-top:#{o.formate_id.email_m_top}px;color:#{o.formate_id.email_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.email_bold">
+	                        <b><span t-esc="emp.work_email"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.email_bold">
+	                        <span t-esc="emp.work_email"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_barcode">
+        <t t-if="o.formate_id.is_barcode">
+            <t t-set="emp_barcode" t-value="emp.emp_number"/>
+            <t t-if="not o.formate_id.is_barcode_center">
+                <div t-attf-style="opacity:1;position:absolute;margin-left:#{o.formate_id.barcode_m_left}px;margin-top:#{o.formate_id.barcode_m_top}px;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    
+                    <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' %
+                (o.formate_id.barcode_type, emp_barcode, 300, 100)" t-attf-style="width:#{o.formate_id.barcode_width}px;height:#{o.formate_id.barcode_height}px"/>
+                
+                
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_barcode_center">
+                <div t-attf-style="opacity:1;position:absolute;margin-top:#{o.formate_id.barcode_m_top}px;display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    
+                    <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' %
+                (o.formate_id.barcode_type, emp_barcode, 300, 100)" t-attf-style="width:#{o.formate_id.barcode_width}px;height:#{o.formate_id.barcode_height}px"/>
+	            </div>
+            </t>
+        </t>
+    </template>
+    
+    <template id="print_employee_c_website_label">
+        <t t-if="o.formate_id.is_c_website_label and o.formate_id.is_c_website">
+            <t t-if="not o.formate_id.is_c_website_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.c_website_lab_font_size}px;margin-left:#{o.formate_id.c_website_lab_m_left}px;margin-top:#{o.formate_id.c_website_lab_m_top}px;color:#{o.formate_id.c_website_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.c_website_lab_bold">
+                        <b><span t-esc="o.formate_id.c_website_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.c_website_lab_bold">
+                        <span t-esc="o.formate_id.c_website_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_c_website_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.c_website_lab_font_size}px;margin-top:#{o.formate_id.c_website_lab_m_top}px;color:#{o.formate_id.c_website_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.c_website_lab_bold">
+                        <b><span t-esc="o.formate_id.c_website_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.c_website_lab_bold">
+                        <span t-esc="o.formate_id.c_website_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template>    
+    
+    
+    <template id="print_employee_c_website">
+        <t t-if="o.formate_id.is_c_website">
+            <t t-if="emp.company_id.website">
+                <t t-if="not o.formate_id.is_c_website_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.c_website_font_size}px;margin-left:#{o.formate_id.c_website_m_left}px;margin-top:#{o.formate_id.c_website_m_top}px;color:#{o.formate_id.c_website_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.c_website_bold">
+	                        <b><span t-esc="emp.company_id.website"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.c_website_bold">
+	                        <span t-esc="emp.company_id.website"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_c_website_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.c_website_font_size}px;margin-top:#{o.formate_id.c_website_m_top}px;color:#{o.formate_id.c_website_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.c_website_bold">
+	                        <b><span t-esc="emp.company_id.website"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.c_website_bold">
+	                        <span t-esc="emp.company_id.website"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    <template id="print_employee_company_name">
+        <t t-if="o.formate_id.is_company_name">
+            <t t-if="emp.company_id">
+                <t t-if="not o.formate_id.is_company_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.company_name_font_size}px;margin-left:#{o.formate_id.company_name_m_left}px;margin-top:#{o.formate_id.company_name_m_top}px;color:#{o.formate_id.company_name_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.company_name_bold">
+	                        <b><span t-esc="emp.company_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.company_name_bold">
+	                        <span t-esc="emp.company_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_company_name_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.company_name_font_size}px;margin-top:#{o.formate_id.company_name_m_top}px;color:#{o.formate_id.company_name_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.company_name_bold">
+	                        <b><span t-esc="emp.company_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.company_name_bold">
+	                        <span t-esc="emp.company_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    
+    
+    <template id="print_employee_home_address_label">
+        <t t-if="o.formate_id.is_home_address_label and o.formate_id.is_home_address">
+            <t t-if="not o.formate_id.is_home_address_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.home_address_lab_font_size}px;margin-left:#{o.formate_id.home_address_lab_m_left}px;margin-top:#{o.formate_id.home_address_lab_m_top}px;color:#{o.formate_id.home_address_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.home_address_lab_bold">
+                        <b><span t-esc="o.formate_id.home_address_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.home_address_lab_bold">
+                        <span t-esc="o.formate_id.home_address_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_home_address_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.home_address_lab_font_size}px;margin-top:#{o.formate_id.home_address_lab_m_top}px;color:#{o.formate_id.home_address_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.home_address_lab_bold">
+                        <b><span t-esc="o.formate_id.home_address_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.home_address_lab_bold">
+                        <span t-esc="o.formate_id.home_address_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template> 
+    
+    
+    <template id="print_employee_home_address_street">
+        <t t-if="o.formate_id.is_h_street">
+            <t t-if="emp.address_home_id.street">
+                <t t-if="not o.formate_id.is_h_street_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_street_font_size}px;margin-left:#{o.formate_id.h_street_m_left}px;margin-top:#{o.formate_id.h_street_m_top}px;color:#{o.formate_id.h_street_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.h_street_bold">
+	                        <b><span t-esc="emp.address_home_id.street"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_street_bold">
+	                        <span t-esc="emp.address_home_id.street"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_h_street_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_street_font_size}px;margin-top:#{o.formate_id.h_street_m_top}px;color:#{o.formate_id.h_street_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.h_street_bold">
+	                        <b><span t-esc="emp.address_home_id.street"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_street_bold">
+	                        <span t-esc="emp.address_home_id.street"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    <template id="print_employee_home_address_street2">
+        <t t-if="o.formate_id.is_h_street2">
+            <t t-if="emp.address_home_id.street2">
+                <t t-if="not o.formate_id.is_h_street2_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_street2_font_size}px;margin-left:#{o.formate_id.h_street2_m_left}px;margin-top:#{o.formate_id.h_street2_m_top}px;color:#{o.formate_id.h_street2_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.h_street2_bold">
+	                        <b><span t-esc="emp.address_home_id.street2"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_street2_bold">
+	                        <span t-esc="emp.address_home_id.street2"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_h_street2_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_street2_font_size}px;margin-top:#{o.formate_id.h_street2_m_top}px;color:#{o.formate_id.h_street2_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.h_street2_bold">
+	                        <b><span t-esc="emp.address_home_id.street2"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_street2_bold">
+	                        <span t-esc="emp.address_home_id.street2"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>  
+    
+    <template id="print_employee_home_address_city">
+        <t t-if="o.formate_id.is_h_city">
+            <t t-if="emp.address_home_id.city">
+                <t t-if="not o.formate_id.is_h_city_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_city_font_size}px;margin-left:#{o.formate_id.h_city_m_left}px;margin-top:#{o.formate_id.h_city_m_top}px;color:#{o.formate_id.h_city_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.h_city_bold">
+	                        <b><span t-esc="emp.address_home_id.city"/> 
+	                            <t t-if="emp.address_home_id.zip">
+	                                - <span t-esc="emp.address_home_id.zip"/> 
+	                            </t>
+	                        </b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_city_bold">
+	                        <span t-esc="emp.address_home_id.city"/>
+	                        <t t-if="emp.address_home_id.zip">
+	                            - <span t-esc="emp.address_home_id.zip"/> 
+	                        </t>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_h_city_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_city_font_size}px;margin-top:#{o.formate_id.h_city_m_top}px;color:#{o.formate_id.h_city_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.h_city_bold">
+	                        <b><span t-esc="emp.address_home_id.city"/>
+	                            <t t-if="emp.address_home_id.zip">
+	                                - <span t-esc="emp.address_home_id.zip"/> 
+	                            </t>
+	                        </b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_city_bold">
+	                        <span t-esc="emp.address_home_id.city"/>
+	                        <t t-if="emp.address_home_id.zip">
+                                - <span t-esc="emp.address_home_id.zip"/> 
+                            </t>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    
+    <template id="print_employee_home_address_state">
+        <t t-if="o.formate_id.is_h_state">
+            <t t-if="emp.address_home_id.state_id">
+                <t t-if="not o.formate_id.is_h_state_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_state_font_size}px;margin-left:#{o.formate_id.h_state_m_left}px;margin-top:#{o.formate_id.h_state_m_top}px;color:#{o.formate_id.h_state_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.h_state_bold">
+	                        <b>
+	                        <span t-esc="emp.address_home_id.state_id.name"/> <span t-esc="emp.address_home_id.state_id.code"/>
+	                        
+	                        </b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_state_bold">
+	                        <span t-esc="emp.address_home_id.state_id.name"/> <span t-esc="emp.address_home_id.state_id.code"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_h_state_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_state_font_size}px;margin-top:#{o.formate_id.h_state_m_top}px;color:#{o.formate_id.h_state_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.h_state_bold">
+	                        <b><span t-esc="emp.address_home_id.state_id.name"/> <span t-esc="emp.address_home_id.state_id.code"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_state_bold">
+	                        <span t-esc="emp.address_home_id.state_id.name"/> <span t-esc="emp.address_home_id.state_id.code"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    <template id="print_employee_home_address_country">
+        <t t-if="o.formate_id.is_h_country">
+            <t t-if="emp.address_home_id.country_id">
+                <t t-if="not o.formate_id.is_h_country_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_country_font_size}px;margin-left:#{o.formate_id.h_country_m_left}px;margin-top:#{o.formate_id.h_country_m_top}px;color:#{o.formate_id.h_country_color};;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.h_country_bold">
+	                        <b><span t-esc="emp.address_home_id.country_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_country_bold">
+	                        <span t-esc="emp.address_home_id.country_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_h_country_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.h_country_font_size}px;margin-top:#{o.formate_id.h_country_m_top}px;color:#{o.formate_id.h_country_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.h_country_bold">
+	                        <b><span t-esc="emp.address_home_id.country_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.h_country_bold">
+	                        <span t-esc="emp.address_home_id.country_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    
+    
+    <template id="print_employee_work_address_label">
+        <t t-if="o.formate_id.is_work_address_label and o.formate_id.is_work_address">
+            <t t-if="not o.formate_id.is_work_address_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.work_address_lab_font_size}px;margin-left:#{o.formate_id.work_address_lab_m_left}px;margin-top:#{o.formate_id.work_address_lab_m_top}px;color:#{o.formate_id.work_address_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+                    <t t-if="o.formate_id.work_address_lab_bold">
+                        <b><span t-esc="o.formate_id.work_address_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.work_address_lab_bold">
+                        <span t-esc="o.formate_id.work_address_label"/>
+                    </t>
+	            </div>
+            </t>
+            <t t-if="o.formate_id.is_work_address_lab_center">
+                <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.work_address_lab_font_size}px;margin-top:#{o.formate_id.work_address_lab_m_top}px;color:#{o.formate_id.work_address_lab_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+                    <t t-if="o.formate_id.work_address_lab_bold">
+                        <b><span t-esc="o.formate_id.work_address_label"/></b>
+                    </t>
+                    <t t-if="not o.formate_id.work_address_lab_bold">
+                        <span t-esc="o.formate_id.work_address_label"/>
+                    </t>
+	            </div>
+            </t>
+        </t>
+    </template> 
+    
+    
+    <template id="print_employee_work_address_street">
+        <t t-if="o.formate_id.is_w_street">
+            <t t-if="emp.address_id.street">
+                <t t-if="not o.formate_id.is_w_street_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_street_font_size}px;margin-left:#{o.formate_id.w_street_m_left}px;margin-top:#{o.formate_id.w_street_m_top}px;color:#{o.formate_id.w_street_color};;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.w_street_bold">
+	                        <b><span t-esc="emp.address_id.street"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_street_bold">
+	                        <span t-esc="emp.address_id.street"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_w_street_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_street_font_size}px;margin-top:#{o.formate_id.w_street_m_top}px;color:#{o.formate_id.w_street_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.w_street_bold">
+	                        <b><span t-esc="emp.address_id.street"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_street_bold">
+	                        <span t-esc="emp.address_id.street"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_employee_work_address_street2">
+        <t t-if="o.formate_id.is_w_street2">
+            <t t-if="emp.address_id.street2">
+                <t t-if="not o.formate_id.is_w_street2_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_street2_font_size}px;margin-left:#{o.formate_id.w_street2_m_left}px;margin-top:#{o.formate_id.w_street2_m_top}px;color:#{o.formate_id.w_street2_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.w_street2_bold">
+	                        <b><span t-esc="emp.address_id.street2"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_street2_bold">
+	                        <span t-esc="emp.address_id.street2"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_w_street2_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_street2_font_size}px;margin-top:#{o.formate_id.w_street2_m_top}px;color:#{o.formate_id.w_street2_color}px;display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.w_street2_bold">
+	                        <b><span t-esc="emp.address_id.street2"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_street2_bold">
+	                        <span t-esc="emp.address_id.street2"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_employee_work_address_city">
+        <t t-if="o.formate_id.is_w_city">
+            <t t-if="emp.address_id.city">
+                <t t-if="not o.formate_id.is_w_city_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_city_font_size}px;margin-left:#{o.formate_id.w_city_m_left}px;margin-top:#{o.formate_id.w_city_m_top}px;color:#{o.formate_id.w_city_color};;display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.w_city_bold">
+	                        <b><span t-esc="emp.address_id.city"/> 
+	                            <t t-if="emp.address_id.zip">
+	                                - <span t-esc="emp.address_id.zip"/> 
+	                            </t>
+	                        </b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_city_bold">
+	                        <span t-esc="emp.address_id.city"/>
+	                        <t t-if="emp.address_id.zip">
+	                            - <span t-esc="emp.address_id.zip"/> 
+	                        </t>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_w_city_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_city_font_size}px;margin-top:#{o.formate_id.w_city_m_top}px;color:#{o.formate_id.w_city_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.w_city_bold">
+	                        <b><span t-esc="emp.address_id.city"/>
+	                            <t t-if="emp.address_id.zip">
+	                                - <span t-esc="emp.address_id.zip"/> 
+	                            </t>
+	                        </b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_city_bold">
+	                        <span t-esc="emp.address_id.city"/>
+	                        <t t-if="emp.address_id.zip">
+                                - <span t-esc="emp.address_id.zip"/> 
+                            </t>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+    
+    <template id="print_employee_work_address_state">
+        <t t-if="o.formate_id.is_w_state">
+            <t t-if="emp.address_id.state_id">
+                <t t-if="not o.formate_id.is_w_state_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_state_font_size}px;margin-left:#{o.formate_id.w_state_m_left}px;margin-top:#{o.formate_id.w_state_m_top}px;color:#{o.formate_id.w_state_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.w_state_bold">
+	                        <b>
+	                        <span t-esc="emp.address_id.state_id.name"/> <span t-esc="emp.address_id.state_id.code"/>
+	                        
+	                        </b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_state_bold">
+	                        <span t-esc="emp.address_id.state_id.name"/> <span t-esc="emp.address_id.state_id.code"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_w_state_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_state_font_size}px;margin-top:#{o.formate_id.w_state_m_top}px;color:#{o.formate_id.w_state_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.w_state_bold">
+	                        <b><span t-esc="emp.address_id.state_id.name"/> <span t-esc="emp.address_id.state_id.code"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_state_bold">
+	                        <span t-esc="emp.address_id.state_id.name"/> <span t-esc="emp.address_id.state_id.code"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    
+    <template id="print_employee_work_address_country">
+        <t t-if="o.formate_id.is_w_country">
+            <t t-if="emp.address_id.country_id">
+                <t t-if="not o.formate_id.is_w_country_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_country_font_size}px;margin-left:#{o.formate_id.w_country_m_left}px;margin-top:#{o.formate_id.w_country_m_top}px;color:#{o.formate_id.w_country_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.w_country_bold">
+	                        <b><span t-esc="emp.address_id.country_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_country_bold">
+	                        <span t-esc="emp.address_id.country_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_w_country_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.w_country_font_size}px;margin-top:#{o.formate_id.w_country_m_top}px;color:#{o.formate_id.w_country_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.w_country_bold">
+	                        <b><span t-esc="emp.address_id.country_id.name"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.w_country_bold">
+	                        <span t-esc="emp.address_id.country_id.name"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    
+   
+    <template id="print_employee_notes">
+        <t t-if="o.formate_id.is_notes">
+            <t t-if="o.formate_id.note">
+                <t t-if="not o.formate_id.is_notes_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.notes_font_size}px;margin-left:#{o.formate_id.notes_m_left}px;margin-top:#{o.formate_id.notes_m_top}px;color:#{o.formate_id.notes_color};display: block; height: 25px;line-height:25px;width:#{o.width}px">
+	                    <t t-if="o.formate_id.notes_bold">
+	                        <b><span t-esc="o.formate_id.note"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.notes_bold">
+	                        <span t-esc="o.formate_id.note"/>
+	                    </t>
+		            </div>
+                </t>
+                <t t-if="o.formate_id.is_notes_center">
+                    <div t-attf-style="opacity:1;position:absolute;font-size:#{o.formate_id.notes_font_size}px;margin-top:#{o.formate_id.notes_m_top}px;color:#{o.formate_id.notes_color};display: block; height: 25px;line-height:25px;width:#{o.width}px;text-align:center;">
+	                    <t t-if="o.formate_id.notes_bold">
+	                        <b><span t-esc="o.formate_id.note"/></b>
+	                    </t>
+	                    <t t-if="not o.formate_id.notes_bold">
+	                        <span t-esc="o.formate_id.note"/>
+	                    </t>
+		            </div>
+                </t>
+            </t>
+        </t>
+    </template> 
+    
+    
+	
+	
+	<template id="print_emp_card">  
+		<t t-call="web.basic_layout">
+			<t t-foreach="docs" t-as="o">
+				<div class="page">
+					<div class="row">
+					    <div class="col-12">
+						<t t-foreach="o.employee_ids" t-as="emp">
+						    <t t-if="o.formate_id">
+							    <div t-attf-style="width:#{o.width}px;height:#{o.height}px;border:1px solid black;float:left;margin-left:10px;page-break-inside: avoid;z-index:-10;margin-top:10px;">
+							        <!-- Background Image -->
+									    <t t-if="o.formate_id.back_image">
+										    <img t-if="o.formate_id.back_image" t-att-src="image_data_uri(o.formate_id.back_image)" class="float-start" alt="Logo" t-attf-style="width:100%;height:100%;opacity:1;position:absolute;width:#{o.width}px;height:#{o.height}px"/>
+									    </t>
+									    
+									    <t t-if="o.formate_id">
+									        <t t-call="dev_print_employee_card.print_company_logo" />
+									        <t t-call="dev_print_employee_card.print_employee_image" />
+									        <t t-call="dev_print_employee_card.print_employee_name_label" />
+									        <t t-call="dev_print_employee_card.print_employee_name"/>
+									        <t t-call="dev_print_employee_card.print_employee_job_position_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_job_position"/>
+									        <t t-call="dev_print_employee_card.print_employee_number_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_number"/>
+									        <t t-call="dev_print_employee_card.print_employee_birthday_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_birthday"/>
+									        <t t-call="dev_print_employee_card.print_employee_phone_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_phone"/>
+									        <t t-call="dev_print_employee_card.print_employee_b_group_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_b_group"/>
+									        <t t-call="dev_print_employee_card.print_employee_email_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_email"/>
+									        <t t-call="dev_print_employee_card.print_barcode"/>
+									        <t t-call="dev_print_employee_card.print_employee_c_website_label"/>
+									        <t t-call="dev_print_employee_card.print_employee_c_website"/>
+									        <t t-call="dev_print_employee_card.print_employee_company_name"/>
+									        <t t-call="dev_print_employee_card.print_employee_notes"/>
+									        
+									        
+									        <t t-if="o.formate_id.is_home_address and emp.address_home_id">
+									            <t t-call="dev_print_employee_card.print_employee_home_address_label"/>
+									            <t t-call="dev_print_employee_card.print_employee_home_address_street"/>
+									            <t t-call="dev_print_employee_card.print_employee_home_address_street2"/>
+									            <t t-call="dev_print_employee_card.print_employee_home_address_city"/>
+									            <t t-call="dev_print_employee_card.print_employee_home_address_state"/>
+									            <t t-call="dev_print_employee_card.print_employee_home_address_country"/>
+									        </t>
+									        
+									        <t t-if="o.formate_id.is_work_address and emp.address_id">
+									            <t t-call="dev_print_employee_card.print_employee_work_address_label"/>
+									            <t t-call="dev_print_employee_card.print_employee_work_address_street"/>
+									            <t t-call="dev_print_employee_card.print_employee_work_address_street2"/>
+									            <t t-call="dev_print_employee_card.print_employee_work_address_city"/>
+									            <t t-call="dev_print_employee_card.print_employee_work_address_state"/>
+									            <t t-call="dev_print_employee_card.print_employee_work_address_country"/>
+									        </t>
+									    </t>
+							    </div>
+							    <t t-if="o.back_formate_id">
+							        <div t-attf-style="width:#{o.width}px;height:#{o.height}px;border:1px solid black;float:left;margin-left:10px;page-break-inside: avoid;z-index:-10;margin-top:10px;">
+							            <!-- Background Image -->
+									        <t t-if="o.back_formate_id.back_image">
+										        <img t-att-src="'data:image/png;base64,%s' % to_text(o.back_formate_id.back_image)" 
+										            t-attf-style="width:100%;height:100%;opacity:1;position:absolute;width:#{o.width}px;height:#{o.height}px"/>
+									        </t>
+								            <t t-set="formate_id" t-value="o.formate_id"/>
+								            <t t-esc="set_formate_id(o,o.back_formate_id)"/>
+								            <t t-call="dev_print_employee_card.print_company_logo" />
+								            <t t-call="dev_print_employee_card.print_employee_image" />
+								            <t t-call="dev_print_employee_card.print_employee_name_label" />
+								            <t t-call="dev_print_employee_card.print_employee_name"/>
+								            <t t-call="dev_print_employee_card.print_employee_job_position_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_job_position"/>
+								            <t t-call="dev_print_employee_card.print_employee_number_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_number"/>
+								            <t t-call="dev_print_employee_card.print_employee_birthday_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_birthday"/>
+								            <t t-call="dev_print_employee_card.print_employee_phone_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_phone"/>
+								            <t t-call="dev_print_employee_card.print_employee_b_group_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_b_group"/>
+								            <t t-call="dev_print_employee_card.print_employee_email_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_email"/>
+								            <t t-call="dev_print_employee_card.print_barcode"/>
+								            <t t-call="dev_print_employee_card.print_employee_c_website_label"/>
+								            <t t-call="dev_print_employee_card.print_employee_c_website"/>
+								            <t t-call="dev_print_employee_card.print_employee_company_name"/>
+								            <t t-call="dev_print_employee_card.print_employee_notes"/>
+								            <t t-if="o.formate_id.is_home_address and emp.address_home_id">
+								                <t t-call="dev_print_employee_card.print_employee_home_address_label"/>
+								                <t t-call="dev_print_employee_card.print_employee_home_address_street"/>
+								                <t t-call="dev_print_employee_card.print_employee_home_address_street2"/>
+								                <t t-call="dev_print_employee_card.print_employee_home_address_city"/>
+								                <t t-call="dev_print_employee_card.print_employee_home_address_state"/>
+								                <t t-call="dev_print_employee_card.print_employee_home_address_country"/>
+								            </t>
+								            
+								            <t t-if="o.formate_id.is_work_address and emp.address_id">
+								                <t t-call="dev_print_employee_card.print_employee_work_address_label"/>
+								                <t t-call="dev_print_employee_card.print_employee_work_address_street"/>
+								                <t t-call="dev_print_employee_card.print_employee_work_address_street2"/>
+								                <t t-call="dev_print_employee_card.print_employee_work_address_city"/>
+								                <t t-call="dev_print_employee_card.print_employee_work_address_state"/>
+								                <t t-call="dev_print_employee_card.print_employee_work_address_country"/>
+								            </t>
+								            <t t-esc="set_formate_id(o,formate_id)"/>
+							        </div>
+							     </t>
+							    
+						    </t>
+						</t>
+						</div>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>
+

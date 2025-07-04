@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+card_setting_all,card.setting,model_card_setting,,1,0,0,0
+card_setting_manager,card.setting.manager,model_card_setting,hr.group_hr_manager,1,1,1,1
+dev_print_employee_card,print.employee.card,model_print_employee_card,,1,1,1,1
+
+
+
+
+
+
+
+
